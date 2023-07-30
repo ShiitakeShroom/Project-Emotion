@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: ed5e872258a87c94aaf1033310353890
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - characterGameObject: {instanceID: 0}
+  - healthSystem: {fileID: 3222937659478651466, guid: 439ee4ea75fbb6a47b343a343cd06aa7,
+      type: 3}
+  - emotionSystem: {fileID: 3222937659478651467, guid: 439ee4ea75fbb6a47b343a343cd06aa7,
+      type: 3}
+  - playerStatus: {fileID: 11400000, guid: fea497991cacfaf4481867281f99257f, type: 2}
+  - enemyStatus: {fileID: 11400000, guid: 98006f7c31de7b04b9ea1aab5b940cfd, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
