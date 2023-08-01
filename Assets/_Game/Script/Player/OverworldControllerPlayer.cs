@@ -1,27 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class OverworldControllerPlayer : MonoBehaviour
 {
-    
     [Header("Basic Stats Overworld")]
     public float moveSpeedOw = 10f;
     private Player_Main playerMain;
     private Vector3 moveDir;
     private Vector3 lastMoveDir;
     public Rigidbody rb;
-
-
-    //public Transform movePoint; 
+    private GameObject Player;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        GameObject Player = this.GameObject();
         rb = GetComponent<Rigidbody>();
-        //movePoint.parent = Player.transform;
     }
 
     private void Awake()
@@ -36,11 +34,6 @@ public class OverworldControllerPlayer : MonoBehaviour
         HandleMovement();
 
     }
-
-    /*public void SetMovePointParent(Transform movePoint, Transform newParent)
-    {   
-        movePoint.parent = newParent;
-    }*/
 
     private void HandleMovement()
     {

@@ -19,15 +19,20 @@ public class BattleControllerPlayer : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        
+    }
+
+    public void Start()
+    {
+        SetMovePointParentToNull();
     }
 
     // Update is called once per frame
     void Update()
     {
+        
         Movement();
-
     }
+
     public void Movement()
     {
         //Player Sprite bewegt sich zu movePoint/ der movePoint wird Accelerated durch den moveSpeed
@@ -58,7 +63,7 @@ public class BattleControllerPlayer : MonoBehaviour
 
     }
 
-    public void SetMovePointParentToNull(Transform movePoint)
+    public void SetMovePointParentToNull()
     {
         movePoint.parent = null;
     }

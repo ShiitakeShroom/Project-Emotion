@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class StatusManager : MonoBehaviour
 {
     public CharacterStatus playerStatus;//bezug auf das GAmeobejct vom Spieler 
+    CharacterStatus enemyStatus;
     public Player_Base player;
     public bool isAttacked = false; // schaut ob der Charakter schon im Kampf ist
 
@@ -69,12 +70,10 @@ public class StatusManager : MonoBehaviour
         }
     }
 
-
-
-    /*private void setBattleData(Collider other)
+    private void setBattleData(Collider other)
     {
         //Spielerdaten die Gespeichert werden
-        /*playerStatus.position[0] = this.transform.position.x;
+        playerStatus.position[0] = this.transform.position.x;
         playerStatus.position[1] = this.transform.position.y;
         playerStatus.position[2] = this.transform.position.z;
 
@@ -86,5 +85,7 @@ public class StatusManager : MonoBehaviour
         enemyStatus.maxHealth = status.maxHealth;
         enemyStatus.stamina = status.stamina;
         enemyStatus.maxStamina = status.maxStamina;
-    }*/
+    }
+
+
 }

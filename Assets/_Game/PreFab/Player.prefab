@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4842457144076872618
+--- !u!1 &2183675056452078507
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,24 +8,55 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4842457144076872617}
+  - component: {fileID: 2466829610678510811}
   m_Layer: 0
-  m_Name: MovePoint
+  m_Name: movePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4842457144076872617
+--- !u!4 &2466829610678510811
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4842457144076872618}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_GameObject: {fileID: 2183675056452078507}
+  m_LocalRotation: {x: -0.043619405, y: -0, z: -0, w: 0.9990483}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 25, y: 24.718353, z: 10.045785}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4842457144875696080}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2345937692414540560
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 20721074586290391}
+  m_Layer: 0
+  m_Name: BattlePresence
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &20721074586290391
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2345937692414540560}
+  m_LocalRotation: {x: -0.043619405, y: -0, z: -0, w: 0.9990483}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 25, y: 24.718353, z: 10.045785}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4842457144875696080}
@@ -48,6 +79,7 @@ GameObject:
   - component: {fileID: 4842457144875696106}
   - component: {fileID: 4842457144875696110}
   - component: {fileID: 3512638149932295036}
+  - component: {fileID: 4909107317250041902}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -67,7 +99,8 @@ Transform:
   m_LocalScale: {x: 0.04, y: 0.04, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4842457144076872617}
+  - {fileID: 20721074586290391}
+  - {fileID: 2466829610678510811}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 5, y: 0, z: 0}
@@ -213,8 +246,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45c0f99b319f5814cbec5792ff0966c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  emotionSystem: {fileID: 3222937659478651467, guid: 439ee4ea75fbb6a47b343a343cd06aa7,
-    type: 3}
   IsAlive: 1
   status: {fileID: 3512638149932295036}
   interactionSphereRadius: 1
@@ -234,8 +265,6 @@ MonoBehaviour:
   playerStatus: {fileID: 11400000, guid: fea497991cacfaf4481867281f99257f, type: 2}
   player: {fileID: 4842457144875696110}
   isAttacked: 0
-  healthSystem: {fileID: 3222937659478651466, guid: 439ee4ea75fbb6a47b343a343cd06aa7,
-    type: 3}
   emotionSystem: {fileID: 3222937659478651467, guid: 439ee4ea75fbb6a47b343a343cd06aa7,
     type: 3}
   emotionValues:
@@ -245,4 +274,23 @@ MonoBehaviour:
   - 0
   - 0
   - 0
+  emotionSlider: {fileID: 0}
   slider: {fileID: 4071283520362211098, guid: cee25757301cfaf4899bc42f73a181e7, type: 3}
+--- !u!114 &4909107317250041902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4842457144875696093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b90b9dae1662985479113901877dac2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeedBattle: 5
+  movePoint: {fileID: 2466829610678510811}
+  jumpTime: 0.05
+  whatStopsMovement:
+    serializedVersion: 2
+    m_Bits: 0

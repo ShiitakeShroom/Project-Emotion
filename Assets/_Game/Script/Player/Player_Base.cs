@@ -62,7 +62,7 @@ public class Player_Base : MonoBehaviour
     {
         if (IsAlive)
         {
-            status.slider.SetHealth(status.healthSystem.GetHealth());
+
             Debug.Log("Der Player hat noch" + status.healthSystem.GetHealth());
         }
     }
@@ -71,8 +71,6 @@ public class Player_Base : MonoBehaviour
     {
         if (IsAlive == true)
         {
-            status.slider.SetHealth(status.healthSystem.GetHealth());
-
             Debug.Log("Der Player hat noch" + status.healthSystem.GetHealth());
         }
     }
@@ -89,7 +87,6 @@ public class Player_Base : MonoBehaviour
 
     private void HealthChanged(object sender, EventArgs e)
     {
-        status.slider.SetHealth(status.healthSystem.GetHealth());
         Debug.Log("healthbar " + status.healthSystem.GetHealth());
     }
 
