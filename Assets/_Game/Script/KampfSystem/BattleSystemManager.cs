@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -6,6 +7,8 @@ using UnityEngine;
 public class BattleSystemManager : MonoBehaviour
 {
     public enum BattleState { Start, Battle, Pause, Win, Lose }
+
+    public StatusManager statusManager;
 
     public CharacterStatus playerStatus;
     public CharacterStatus enemyStatus;
@@ -26,7 +29,9 @@ public class BattleSystemManager : MonoBehaviour
 
 
     public void Start()
-    {   
+    {
+        statusManager.ValueHealthChanged += ValueHealthChanged;
+        statusManager.OnDeath += OnDeath;
         battleState = BattleState.Start;
         StartCoroutine(BeginBattle());
     }
@@ -103,18 +108,36 @@ public class BattleSystemManager : MonoBehaviour
             yield return new WaitForSeconds(1);
             playerController.enabled = false;
             overworldControllerPlayer.enabled = true;
-            LevelLoader.instance.LoadLevel("Sample Scene");
+            LevelLoader.instance.LoadLevel("SampleScene");
         }
 
         else if(battleState == BattleState.Lose)    
         {
             yield return new WaitForSeconds(1);
-            playerController.enabled = false;
-            overworldControllerPlayer.enabled = true;
-            LevelLoader.instance.LoadLevel("Sample Scene");
+            LevelLoader.instance.LoadLevel("SampleScene");
         }
+    }
 
+    public void ValueHealthChanged(object sender, StatusManager.HealthChangeEventArgs e)
+    {
+        playerStatusHUD.SetHP(playerStatus, e.amount);
+        Debug.Log("Damge" + e.amount);
+    }
 
+    public void OnDeath(object sender, EventArgs e)
+    {
+        Debug.Log("Erfüllt");
+        if(playerStatus.health <= 0)
+        {
+            battleState = BattleState.Lose;
+            StartCoroutine(EndBattle());
+        }
+        if (enemyStatus.health <= 0)
+        {
+            battleState = BattleState.Win;
+            StartCoroutine(EndBattle());
+        }
     }
 }
+
 //player = Instantiate(playerStatus.characterGameObject.transform.GetChild(0).gameObject, playerTransform); player.SetActive(true)

@@ -9,8 +9,8 @@ public class CharacterStatus : ScriptableObject
     public float[] position = new float[3];
     public GameObject characterGameObject;
     public int level = 1;
-    public int maxHealth = 100;
-    public int health = 100;
+    public float maxHealth = 100;
+    public float health = 100;
     public float stamina = 100;
     public float maxStamina = 100;
 }

@@ -21,17 +21,6 @@ public class Player_Base : MonoBehaviour
         //Emotion Events
         status.emotionSystem.NearlyMorbingTime += NearlyMorbingTime;
         status.emotionSystem.OhNoItsMorbingTime += ItsMorbingTime;
-
-        //health Events
-        status.healthSystem.OnDamage += HealthSystem_HandleDamage;
-        status.healthSystem.OnHealed += HealthSystem_OnHealed;
-        status.healthSystem.OnDeath += OnDeathHandler;
-        status.healthSystem.HealthChanged += HealthChanged;
-
-        if(status.healthSystem.GetHealth() > 0)
-        {
-            Debug.Log("Health" + status.healthSystem.GetHealth());
-        }
     }
 
     public void Update()
@@ -63,7 +52,6 @@ public class Player_Base : MonoBehaviour
         if (IsAlive)
         {
 
-            Debug.Log("Der Player hat noch" + status.healthSystem.GetHealth());
         }
     }
 
@@ -71,7 +59,6 @@ public class Player_Base : MonoBehaviour
     {
         if (IsAlive == true)
         {
-            Debug.Log("Der Player hat noch" + status.healthSystem.GetHealth());
         }
     }
 
@@ -87,7 +74,6 @@ public class Player_Base : MonoBehaviour
 
     private void HealthChanged(object sender, EventArgs e)
     {
-        Debug.Log("healthbar " + status.healthSystem.GetHealth());
     }
 
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -6,24 +7,31 @@ using UnityEngine.UI;
 
 public class StatusManager : MonoBehaviour
 {
+
+    public event EventHandler<HealthChangeEventArgs> ValueHealthChanged;
+
+    public class HealthChangeEventArgs: EventArgs
+    {
+        public float amount;
+    }
+
+    public event EventHandler OnDeath;
+
     public CharacterStatus playerStatus;//bezug auf das GAmeobejct vom Spieler 
     CharacterStatus enemyStatus;
     public Player_Base player;
     public bool isAttacked = false; // schaut ob der Charakter schon im Kampf ist
 
     //Refernze für Health und EmotionSystem 
-    public HealthSystem healthSystem { get; private set;}
 
     public EmotionSystem emotionSystem;
     //Emotionswert hinzufügen 
     public float[] emotionValues = new float[System.Enum.GetValues(typeof(EmotionSystem.EmotionType)).Length];
-
     public EmotionBar emotionSlider;
-    public HealthBar slider;
 
     void OnTriggerEnter(Collider other)
     {
-        if(this.healthSystem.GetHealth() > 0)//schaut ob der Charakter überhaupt am Leben ist
+        if(this.playerStatus.health > 0)//schaut ob der Charakter überhaupt am Leben ist
         {
             if(other.CompareTag("Enemy"))
             {
@@ -40,21 +48,27 @@ public class StatusManager : MonoBehaviour
     public void Awake()
     {
         emotionSystem = FindObjectOfType<EmotionSystem>();
-        healthSystem = FindObjectOfType<HealthSystem>();
-        healthSystem = new HealthSystem(playerStatus.maxHealth);
-        Debug.Log("health " +  healthSystem.GetHealth());
-        slider.SetMaxHealth(playerStatus.maxHealth);
+        playerStatus.health = playerStatus.maxHealth;
     }
 
 
-    public void TakeDamage(int amount)
+    public void TakeDamage(float amount)
     {
-        healthSystem.DealDamage(amount);
+        playerStatus.health -= amount;
 
-        if (healthSystem.GetHealth() <= 0)
+        ValueHealthChanged?.Invoke(this, new HealthChangeEventArgs
         {
+            amount = amount,
+        });
+        
+        if (playerStatus.health <= 0)
+        {
+            if (playerStatus.health <= 0)
+            {
+                playerStatus.health = 0;
+            }
             player.IsAlive = false;
-            healthSystem.Die();
+            Die();
         }
     }
 
@@ -87,5 +101,9 @@ public class StatusManager : MonoBehaviour
         enemyStatus.maxStamina = status.maxStamina;
     }
 
+    public void Die()
+    {
+        OnDeath?.Invoke(this, EventArgs.Empty);
+    }
 
 }

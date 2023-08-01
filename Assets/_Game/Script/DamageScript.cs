@@ -6,7 +6,7 @@ public class DamageScript : MonoBehaviour
 {
 
     public StatusManager status;
-    public int damage = 50;
+    public float damage = 50;
     // Start is called before the first frame update
 
 
