@@ -20,7 +20,7 @@ MonoBehaviour:
   characterGameObject: {fileID: 4842457144875696093, guid: 1799ebddf7f5ad346bc903551b66c2d6,
     type: 3}
   level: 1
-  maxHealth: 200
-  health: 100
+  maxHealth: 400
+  health: 0
   stamina: 100
   maxStamina: 100

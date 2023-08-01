@@ -54,19 +54,15 @@ public class StatusManager : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
-        playerStatus.health -= amount;
 
         ValueHealthChanged?.Invoke(this, new HealthChangeEventArgs
         {
-            amount = amount,
+           amount = amount,
         });
         
         if (playerStatus.health <= 0)
         {
-            if (playerStatus.health <= 0)
-            {
-                playerStatus.health = 0;
-            }
+            playerStatus.health = 0;
             player.IsAlive = false;
             Die();
         }

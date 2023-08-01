@@ -14,6 +14,7 @@ public class StatusHUD : MonoBehaviour
 
     public void SetStatusHUD(CharacterStatus status)
     {
+        status.health = status.maxHealth;
         float currentHealth = status.health * (100 / status.maxHealth);
         float currentStamina = status.stamina * (100 / status.maxStamina);
 
@@ -26,17 +27,17 @@ public class StatusHUD : MonoBehaviour
 
     public void SetHP(CharacterStatus status, float hp)
     {
-        StartCoroutine(GraduallySetStatusBar(status, hp, false, 2, 0.05f));
+        StartCoroutine(GraduallySetStatusBar(status, hp, false, 10, 0.05f));
     }
 
     IEnumerator GraduallySetStatusBar(CharacterStatus status, float amount, bool Increase, int fillTimes, float fillDelay)
     {
-        float precentage = 1 / (float) fillTimes; // 1/10 = 0,1
-        if(Increase)
+        float precentage = 1 / (float)fillTimes; // 1/5 = 0,1
+        if (Increase)
         {
             for (int fillStep = 0; fillStep < fillTimes; fillStep++)
             {
-                float _fAmount = amount * precentage;//die Amount of HP die zurück kommt
+                float _fAmount = amount * precentage;//die Amount of HP die zurück kommt 
                 float _dAmount = _fAmount / status.maxHealth;//
                 status.health += _fAmount;
                 statusHPBar.fillAmount += _dAmount;
@@ -53,11 +54,12 @@ public class StatusHUD : MonoBehaviour
                 float _dAmount = _fAmount / status.maxHealth; // 1/200 = 0,005
                 status.health -= _fAmount; // 200 - 1 = 199
                 statusHPBar.fillAmount -= _dAmount; // 0,995
-                Debug.Log(statusHPBar.fillAmount -= _dAmount);
                 if (status.health >= 0)
                     statusHPValue.SetText(status.health + "/" + status.maxHealth);
+
                 yield return new WaitForSeconds(fillDelay);
             }
         }
     }
 }
+
