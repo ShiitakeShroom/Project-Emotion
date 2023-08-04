@@ -5,7 +5,7 @@ using UnityEngine;
 public class DamageScript : MonoBehaviour
 {
 
-    public StatusManager status;
+    public PlayerStatus status;
     public float damage = 50f;
     // Start is called before the first frame update
 

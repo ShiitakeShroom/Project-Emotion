@@ -729,24 +729,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 708269496}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &797410561 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7102504379655885030, guid: 9b82b2714d6612b4fbf8b8c6c8559963,
-    type: 3}
-  m_PrefabInstance: {fileID: 1955356599}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &797410564
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 797410561}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd6d012561831e74fa936cfbc5b08473, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &852471363
 GameObject:
   m_ObjectHideFlags: 0
@@ -1485,7 +1467,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e979930996a3780499fc1b23f72d4669, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statusManager: {fileID: 3512638149932295036, guid: 1799ebddf7f5ad346bc903551b66c2d6,
+  playerHealth: {fileID: 8547996926171595852, guid: 1799ebddf7f5ad346bc903551b66c2d6,
     type: 3}
   enemyHealthChange: {fileID: 4295942039854256767, guid: 50c79287eeea937479949412e11d30ef,
     type: 3}

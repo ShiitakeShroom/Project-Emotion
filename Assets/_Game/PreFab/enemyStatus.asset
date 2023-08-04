@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be2eabc53f4a80e4686de0b25947900f, type: 3}
   m_Name: enemyStatus
   m_EditorClassIdentifier: 
-  charName: enemy2
+  charName: Hide
   position:
   - 0
   - 0
@@ -20,7 +20,7 @@ MonoBehaviour:
   characterGameObject: {fileID: 5621395143230437896, guid: 50c79287eeea937479949412e11d30ef,
     type: 3}
   level: 1
-  maxHealth: 200
-  health: 200
+  maxHealth: 400
+  health: 400
   stamina: 10
   maxStamina: 10

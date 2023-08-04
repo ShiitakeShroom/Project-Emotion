@@ -8,7 +8,7 @@ public class BattleSystemManager : MonoBehaviour
 {
     public enum BattleState { Start, Battle, Pause, Win, Lose }
 
-    public StatusManager statusManager;
+    public PlayerStatus playerHealth;
     public EnemyHealth enemyHealthChange;
 
     public CharacterStatus playerStatus;
@@ -29,8 +29,8 @@ public class BattleSystemManager : MonoBehaviour
 
     public void Start()
     {   //Player
-        statusManager.ValueHealthChanged += ValueHealthChanged;
-        statusManager.OnDeath += OnDeath;
+        playerHealth.ValueHealthChanged += ValueHealthChanged;
+        playerHealth.OnDeath += OnDeath;
         //Enemy
         enemyHealthChange.ValueHealthEnemyChanged += EnemyHPChange;
         enemyHealthChange.OnDeath += EnemyDeath;
@@ -118,7 +118,7 @@ public class BattleSystemManager : MonoBehaviour
         }
     }
 
-    public void ValueHealthChanged(object sender, StatusManager.HealthChangeEventArgs e)
+    public void ValueHealthChanged(object sender, PlayerStatus.HealthChangeEventArgs e)
     {
         playerStatusHUD.SetHP(playerStatus, e.amount);
         Debug.Log("Damge" + e.amount);

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 20721074586290391}
   - component: {fileID: 7562408857305871161}
   - component: {fileID: 393587724063188330}
+  - component: {fileID: 1028619003168699854}
   m_Layer: 0
   m_Name: BattlePresence
   m_TagString: Untagged
@@ -100,6 +101,19 @@ MonoBehaviour:
   enemyHealth: {fileID: 4295942039854256767, guid: 50c79287eeea937479949412e11d30ef,
     type: 3}
   damage: 50
+--- !u!114 &1028619003168699854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2345937692414540560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04ebcaba5b3c7ba4f8483122dc1f1735, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerStatus: {fileID: 11400000, guid: fea497991cacfaf4481867281f99257f, type: 2}
 --- !u!1 &4842457144875696093
 GameObject:
   m_ObjectHideFlags: 0
@@ -117,6 +131,7 @@ GameObject:
   - component: {fileID: 4842457144875696106}
   - component: {fileID: 4842457144875696110}
   - component: {fileID: 3512638149932295036}
+  - component: {fileID: 8547996926171595852}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -311,3 +326,16 @@ MonoBehaviour:
   - 0
   - 0
   emotionSlider: {fileID: 0}
+--- !u!114 &8547996926171595852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4842457144875696093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04ebcaba5b3c7ba4f8483122dc1f1735, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerStatus: {fileID: 11400000, guid: fea497991cacfaf4481867281f99257f, type: 2}

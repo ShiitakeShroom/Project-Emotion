@@ -8,14 +8,6 @@ using UnityEngine.UI;
 public class StatusManager : MonoBehaviour
 {
 
-    public event EventHandler<HealthChangeEventArgs> ValueHealthChanged;
-
-    public class HealthChangeEventArgs: EventArgs
-    {
-        public float amount;
-    }
-
-    public event EventHandler OnDeath;
     public CharacterStatus playerStatus;//bezug auf das GAmeobejct vom Spieler 
     public CharacterStatus enemyStatus;
     public bool isAttacked = false; // schaut ob der Charakter schon im Kampf ist
@@ -49,22 +41,6 @@ public class StatusManager : MonoBehaviour
         playerStatus.health = playerStatus.maxHealth;
     }
 
-
-    public void TakeDamage(float amount)
-    {
-
-        ValueHealthChanged?.Invoke(this, new HealthChangeEventArgs
-        {
-           amount = amount,
-        });
-        
-        if (playerStatus.health <= 0)
-        {
-            playerStatus.health = 0;
-            Die();
-        }
-    }
-
     public void UpdateEmotion()
     {
         if (emotionSystem != null)
@@ -93,10 +69,4 @@ public class StatusManager : MonoBehaviour
         enemyStatus.stamina = status.stamina;
         enemyStatus.maxStamina = status.maxStamina;
     }
-
-    public void Die()
-    {
-        OnDeath?.Invoke(this, EventArgs.Empty);
-    }
-
 }

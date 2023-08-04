@@ -15,9 +15,16 @@ public class LevelLoader : MonoBehaviour
     public float transitionTime = 3f;
 
     private void Awake()
-    {
-        instance = this;
-        DontDestroyOnLoad(this.gameObject);
+    {   
+        if(instance == null) {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        
     }
     #endregion
 
