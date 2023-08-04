@@ -10,14 +10,8 @@ public class _Enemy : MonoBehaviour
     private float nextDamageTime;
     public float attackRange = 100f;
 
-    [Header("Sriptsverwaltung")]
-    private Enemy_Main enemyMain;
-
-
     private void Awake()
     {   
-        enemyMain = GetComponent<Enemy_Main>();
-
         nextDamageTime = Time.time + damageInterval;
         //healthSystem.OnDamage += HandleDamage;
         //healthSystem.OnDeath += HandleDeath;

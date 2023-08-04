@@ -9,6 +9,7 @@ public class BattleSystemManager : MonoBehaviour
     public enum BattleState { Start, Battle, Pause, Win, Lose }
 
     public StatusManager statusManager;
+    public EnemyHealth enemyHealthChange;
 
     public CharacterStatus playerStatus;
     public CharacterStatus enemyStatus;
@@ -24,14 +25,15 @@ public class BattleSystemManager : MonoBehaviour
 
     private BattleState battleState;
 
-    private BattleControllerPlayer playerController;
-    private OverworldControllerPlayer overworldControllerPlayer;
 
 
     public void Start()
-    {
+    {   //Player
         statusManager.ValueHealthChanged += ValueHealthChanged;
         statusManager.OnDeath += OnDeath;
+        //Enemy
+        enemyHealthChange.ValueHealthEnemyChanged += EnemyHPChange;
+        enemyHealthChange.OnDeath += EnemyDeath;
         battleState = BattleState.Start;
         StartCoroutine(BeginBattle());
     }
@@ -39,8 +41,8 @@ public class BattleSystemManager : MonoBehaviour
     IEnumerator BeginBattle()
     {
         //Spawn Characters
-        enemy = Instantiate(enemyStatus.characterGameObject, enemyTransform); enemy.SetActive(true);
-        player = Instantiate(playerStatus.characterGameObject, playerTransform); player.SetActive(true);
+        enemy = Instantiate(enemyStatus.characterGameObject.transform.GetChild(0).gameObject, enemyTransform); enemy.SetActive(true);
+        player = Instantiate(playerStatus.characterGameObject.transform.GetChild(0).gameObject, playerTransform); player.SetActive(true);
 
 
         //Sprites Invisible in the Beginning 
@@ -106,8 +108,6 @@ public class BattleSystemManager : MonoBehaviour
             // of message or play a victory fanfare
             // here
             yield return new WaitForSeconds(1);
-            playerController.enabled = false;
-            overworldControllerPlayer.enabled = true;
             LevelLoader.instance.LoadLevel("SampleScene");
         }
 
@@ -124,20 +124,23 @@ public class BattleSystemManager : MonoBehaviour
         Debug.Log("Damge" + e.amount);
     }
 
+    public void EnemyHPChange(object sender, EnemyHealth.HealthChangeEnemyEventArgs e)
+    {
+        enemyStatusHUD.SetHP(enemyStatus, e.amount);
+    }
+
     public void OnDeath(object sender, EventArgs e)
     {
-        Debug.Log("Erfüllt");
-        if(playerStatus.health <= 0)
-        {
-            battleState = BattleState.Lose;
-            StartCoroutine(EndBattle());
-        }
-        if (enemyStatus.health <= 0)
-        {
-            battleState = BattleState.Win;
-            StartCoroutine(EndBattle());
-        }
+        battleState = BattleState.Lose;
+        StartCoroutine(EndBattle());
+    }
+
+    public void EnemyDeath(object sender, EventArgs e)
+    {
+        battleState = BattleState.Win;
+        StartCoroutine(EndBattle());
     }
 }
+
 
 //player = Instantiate(playerStatus.characterGameObject.transform.GetChild(0).gameObject, playerTransform); player.SetActive(true)

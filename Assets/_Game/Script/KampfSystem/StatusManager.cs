@@ -16,10 +16,8 @@ public class StatusManager : MonoBehaviour
     }
 
     public event EventHandler OnDeath;
-
     public CharacterStatus playerStatus;//bezug auf das GAmeobejct vom Spieler 
-    CharacterStatus enemyStatus;
-    public Player_Base player;
+    public CharacterStatus enemyStatus;
     public bool isAttacked = false; // schaut ob der Charakter schon im Kampf ist
 
     //Refernze für Health und EmotionSystem 
@@ -38,7 +36,7 @@ public class StatusManager : MonoBehaviour
                 if(!isAttacked) 
                 { 
                     isAttacked = true;
-                    //setBattleData(other);
+                    SetBattleData(other);
                     LevelLoader.instance.LoadLevel("BattleArena");
                 }
             }
@@ -63,7 +61,6 @@ public class StatusManager : MonoBehaviour
         if (playerStatus.health <= 0)
         {
             playerStatus.health = 0;
-            player.IsAlive = false;
             Die();
         }
     }
@@ -80,7 +77,7 @@ public class StatusManager : MonoBehaviour
         }
     }
 
-    private void setBattleData(Collider other)
+    private void SetBattleData(Collider other)
     {
         //Spielerdaten die Gespeichert werden
         playerStatus.position[0] = this.transform.position.x;
@@ -90,7 +87,7 @@ public class StatusManager : MonoBehaviour
         //EnemyData
         CharacterStatus status = other.gameObject.GetComponent<EnemyStatus>().enemyStatus;
         enemyStatus.charName = status.charName;
-        enemyStatus.characterGameObject = status.characterGameObject.transform.GetChild(0).gameObject;
+        enemyStatus.characterGameObject = status.characterGameObject;
         enemyStatus.health = status.health;
         enemyStatus.maxHealth = status.maxHealth;
         enemyStatus.stamina = status.stamina;

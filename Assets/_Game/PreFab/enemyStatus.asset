@@ -12,24 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be2eabc53f4a80e4686de0b25947900f, type: 3}
   m_Name: enemyStatus
   m_EditorClassIdentifier: 
-  charName: Enemy
-  telePosition:
+  charName: enemy2
+  position:
   - 0
   - 0
   - 0
   characterGameObject: {fileID: 5621395143230437896, guid: 50c79287eeea937479949412e11d30ef,
     type: 3}
   level: 1
-  maxHealth: 100
-  health: 100
-  stamina: 100
-  maxStamina: 100
-  healthSystem: {fileID: 0}
-  emotionSystem: {fileID: 0}
-  emotionValues:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
+  maxHealth: 200
+  health: 200
+  stamina: 10
+  maxStamina: 10
