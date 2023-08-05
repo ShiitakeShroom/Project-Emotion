@@ -9,7 +9,7 @@ public class StatusManager : MonoBehaviour
 {
 
     public CharacterStatus playerStatus;//bezug auf das GAmeobejct vom Spieler 
-    public CharacterStatus enemyStatus;
+    CharacterStatus currentEnemyStatus;
     public bool isAttacked = false; // schaut ob der Charakter schon im Kampf ist
 
     //Refernze für Health und EmotionSystem 
@@ -20,17 +20,23 @@ public class StatusManager : MonoBehaviour
     public EmotionBar emotionSlider;
 
     void OnTriggerEnter(Collider other)
-    {
+    {   
+        currentEnemyStatus = other.GetComponent<EnemyStatus>().enemyStatus;
         if(this.playerStatus.health > 0)//schaut ob der Charakter überhaupt am Leben ist
         {
+            Debug.Log(this.playerStatus.health);
+                
             if(other.CompareTag("Enemy"))
             {
                 if(!isAttacked) 
                 { 
                     isAttacked = true;
+                    Debug.Log("Gather Dtata ...");
                     SetBattleData(other);
+                    Debug.Log("loadLevel");
                     LevelLoader.instance.LoadLevel("BattleArena");
                 }
+                
             }
         }
     }
@@ -38,7 +44,6 @@ public class StatusManager : MonoBehaviour
     public void Awake()
     {
         emotionSystem = FindObjectOfType<EmotionSystem>();
-        playerStatus.health = playerStatus.maxHealth;
     }
 
     public void UpdateEmotion()
@@ -62,11 +67,12 @@ public class StatusManager : MonoBehaviour
 
         //EnemyData
         CharacterStatus status = other.gameObject.GetComponent<EnemyStatus>().enemyStatus;
-        enemyStatus.charName = status.charName;
-        enemyStatus.characterGameObject = status.characterGameObject;
-        enemyStatus.health = status.health;
-        enemyStatus.maxHealth = status.maxHealth;
-        enemyStatus.stamina = status.stamina;
-        enemyStatus.maxStamina = status.maxStamina;
+        currentEnemyStatus.charName = status.charName;
+        currentEnemyStatus.characterGameObject = status.characterGameObject;
+        currentEnemyStatus.health = status.health;
+        currentEnemyStatus.maxHealth = status.maxHealth;
+        currentEnemyStatus.stamina = status.stamina;
+        currentEnemyStatus.maxStamina = status.maxStamina;
+
     }
 }

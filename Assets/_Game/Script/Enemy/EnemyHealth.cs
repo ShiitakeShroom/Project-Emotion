@@ -17,11 +17,6 @@ public class EnemyHealth : MonoBehaviour
 
     public bool isAlive = true;
 
-
-    public void Awake()
-    {
-        enemyStatus.health = enemyStatus.maxHealth;
-    }
     //Funktion die Aufgreufen wird wenn man dem Gegner Damage zufügen will
     public void TakeDmgEnemy(float amount)
     {
@@ -39,5 +34,6 @@ public class EnemyHealth : MonoBehaviour
     public void Die()
     {
         OnDeath?.Invoke(this, EventArgs.Empty);
+        Destroy(gameObject);
     }
 }

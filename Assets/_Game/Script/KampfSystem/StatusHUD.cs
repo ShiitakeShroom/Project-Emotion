@@ -26,8 +26,11 @@ public class StatusHUD : MonoBehaviour
     }
 
     public void SetHP(CharacterStatus status, float hp)
-    {
+    {   
+        if(gameObject != null) { 
         StartCoroutine(GraduallySetStatusBar(status, hp, false, 10, 0.05f));
+    
+        }
     }
 
     IEnumerator GraduallySetStatusBar(CharacterStatus status, float amount, bool Increase, int fillTimes, float fillDelay)

@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   charName: Yu
   position:
-  - 0
-  - 0
-  - 0
+  - 2.9999983
+  - 1.0000008
+  - 5.987677e-10
   characterGameObject: {fileID: 4842457144875696093, guid: 1799ebddf7f5ad346bc903551b66c2d6,
     type: 3}
   level: 1
   maxHealth: 400
-  health: 0
+  health: 100
   stamina: 100
   maxStamina: 100

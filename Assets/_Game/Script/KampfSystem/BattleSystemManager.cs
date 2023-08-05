@@ -7,6 +7,7 @@ using UnityEngine;
 public class BattleSystemManager : MonoBehaviour
 {
     public enum BattleState { Start, Battle, Pause, Win, Lose }
+    public StatusManager statusManager;
 
     public PlayerStatus playerHealth;
     public EnemyHealth enemyHealthChange;
@@ -31,6 +32,7 @@ public class BattleSystemManager : MonoBehaviour
     {   //Player
         playerHealth.ValueHealthChanged += ValueHealthChanged;
         playerHealth.OnDeath += OnDeath;
+
         //Enemy
         enemyHealthChange.ValueHealthEnemyChanged += EnemyHPChange;
         enemyHealthChange.OnDeath += EnemyDeath;
@@ -119,14 +121,18 @@ public class BattleSystemManager : MonoBehaviour
     }
 
     public void ValueHealthChanged(object sender, PlayerStatus.HealthChangeEventArgs e)
-    {
-        playerStatusHUD.SetHP(playerStatus, e.amount);
-        Debug.Log("Damge" + e.amount);
+    {   
+        if(playerStatusHUD != null) { 
+            playerStatusHUD.SetHP(playerStatus, e.amount);
+            Debug.Log("Damge" + e.amount);
+        }
     }
 
     public void EnemyHPChange(object sender, EnemyHealth.HealthChangeEnemyEventArgs e)
     {
-        enemyStatusHUD.SetHP(enemyStatus, e.amount);
+        if(enemyStatusHUD != null) { 
+            enemyStatusHUD.SetHP(enemyStatus, e.amount);
+        }
     }
 
     public void OnDeath(object sender, EventArgs e)

@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: be2eabc53f4a80e4686de0b25947900f, type: 3}
-  m_Name: enemyStatus
+  m_Name: Hide
   m_EditorClassIdentifier: 
-  charName: Hide
+  charName: Kuro
   position:
   - 0
   - 0
   - 0
-  characterGameObject: {fileID: 5621395143230437896, guid: 50c79287eeea937479949412e11d30ef,
+  characterGameObject: {fileID: 9167650734615493017, guid: 05f2e9b56eae67644b58e9ccca601fc1,
     type: 3}
   level: 1
-  maxHealth: 400
-  health: 400
+  maxHealth: 100
+  health: 100
   stamina: 10
   maxStamina: 10
