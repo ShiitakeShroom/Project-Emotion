@@ -9,9 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3222937659478651469}
-  - component: {fileID: 3222937659478651468}
-  - component: {fileID: 3222937659478651466}
   - component: {fileID: 3222937659478651467}
+  - component: {fileID: 8570369205822750746}
   m_Layer: 0
   m_Name: "God(Zustands\xFCberwacher)"
   m_TagString: Untagged
@@ -34,35 +33,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3222937659478651468
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3222937659478651471}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bcd6f63a6eed944d91b611b2b99e0dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  overworldController: {fileID: 4842457144875696087, guid: 1799ebddf7f5ad346bc903551b66c2d6,
-    type: 3}
-  currentState: 0
-  movePoint: {fileID: 4842457144875696080, guid: 1799ebddf7f5ad346bc903551b66c2d6,
-    type: 3}
---- !u!114 &3222937659478651466
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3222937659478651471}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a54450e0c62fdd542bc567467997bf4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3222937659478651467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -88,3 +58,20 @@ MonoBehaviour:
     value: 0
   - emotionType: 0
     value: 0
+  maxEmotionValue: 100
+  minEmotionValue: 0
+  monsterTransformationThreshold: 75
+--- !u!114 &8570369205822750746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3222937659478651471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9381bf6d1da1234f92b8ed786f589d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCharacterStatus: {fileID: 0}
+  playerCharacterStatus: {fileID: 0}

@@ -21,18 +21,18 @@ public class StatusManager : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {   
-        currentEnemyStatus = other.GetComponent<EnemyStatus>().enemyStatus;
+        
         if(this.playerStatus.health > 0)//schaut ob der Charakter überhaupt am Leben ist
         {
-            Debug.Log(this.playerStatus.health);
-                
             if(other.CompareTag("Enemy"))
             {
-                if(!isAttacked) 
+                CharacterStatus currentEnemyStatus = other.GetComponent<EnemyStatus>().enemyStatus;
+                CharacterStatusManager.Instance.enemyCharacterStatus = currentEnemyStatus;
+                if (!isAttacked) 
                 { 
                     isAttacked = true;
                     Debug.Log("Gather Dtata ...");
-                    SetBattleData(other);
+                    //SetBattleData(other);
                     Debug.Log("loadLevel");
                     LevelLoader.instance.LoadLevel("BattleArena");
                 }
@@ -73,6 +73,5 @@ public class StatusManager : MonoBehaviour
         currentEnemyStatus.maxHealth = status.maxHealth;
         currentEnemyStatus.stamina = status.stamina;
         currentEnemyStatus.maxStamina = status.maxStamina;
-
     }
 }

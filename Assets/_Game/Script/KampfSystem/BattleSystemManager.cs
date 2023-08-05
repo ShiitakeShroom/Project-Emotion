@@ -7,7 +7,7 @@ using UnityEngine;
 public class BattleSystemManager : MonoBehaviour
 {
     public enum BattleState { Start, Battle, Pause, Win, Lose }
-    public StatusManager statusManager;
+    private CharacterStatusManager characterStatusManager;
 
     public PlayerStatus playerHealth;
     public EnemyHealth enemyHealthChange;
@@ -32,7 +32,8 @@ public class BattleSystemManager : MonoBehaviour
     {   //Player
         playerHealth.ValueHealthChanged += ValueHealthChanged;
         playerHealth.OnDeath += OnDeath;
-
+        characterStatusManager = CharacterStatusManager.Instance;
+        enemyStatus = characterStatusManager.enemyCharacterStatus;
         //Enemy
         enemyHealthChange.ValueHealthEnemyChanged += EnemyHPChange;
         enemyHealthChange.OnDeath += EnemyDeath;
