@@ -21,10 +21,11 @@ public class EnemyHealth : MonoBehaviour
     public void TakeDmgEnemy(float amount)
     {
         ValueHealthEnemyChanged?.Invoke(this, new HealthChangeEnemyEventArgs
-            {
+        {
             amount = amount
         });
-        if(enemyStatus.health <= 0 )
+
+        if(enemyStatus.health < 0 )
         {
             enemyStatus.health = 0;
             Die();
@@ -34,6 +35,6 @@ public class EnemyHealth : MonoBehaviour
     public void Die()
     {
         OnDeath?.Invoke(this, EventArgs.Empty);
-        Destroy(gameObject);
+        DestroyImmediate(gameObject, true );
     }
 }

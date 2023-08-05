@@ -106,10 +106,11 @@ public class BattleSystemManager : MonoBehaviour
 
         //Check if won
         if (battleState == BattleState.Win)
-        { 
+        {
             // you may wish to display some kind
             // of message or play a victory fanfare
             // here
+            Destroy(enemyStatus.characterGameObject);
             yield return new WaitForSeconds(1);
             LevelLoader.instance.LoadLevel("SampleScene");
         }
