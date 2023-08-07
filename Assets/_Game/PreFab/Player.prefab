@@ -114,6 +114,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerStatus: {fileID: 11400000, guid: fea497991cacfaf4481867281f99257f, type: 2}
+  healthSliderPlayer: {fileID: 2025669150726382132, guid: 5c84ce5d798f64c49a779502cc0920a8,
+    type: 3}
 --- !u!1 &4842457144875696093
 GameObject:
   m_ObjectHideFlags: 0
@@ -314,7 +316,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerStatus: {fileID: 11400000, guid: fea497991cacfaf4481867281f99257f, type: 2}
-  enemyStatus: {fileID: 0}
   isAttacked: 0
   emotionSystem: {fileID: 3222937659478651467, guid: 439ee4ea75fbb6a47b343a343cd06aa7,
     type: 3}
@@ -339,3 +340,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerStatus: {fileID: 11400000, guid: fea497991cacfaf4481867281f99257f, type: 2}
+  healthSliderPlayer: {fileID: 0}

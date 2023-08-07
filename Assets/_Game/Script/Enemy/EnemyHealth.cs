@@ -2,10 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemyHealth : MonoBehaviour
 {
     public CharacterStatus enemyStatus;
+    public StatusHUDSilderEnemy healthHUD;
 
     public event EventHandler OnDeath;
     public event EventHandler<HealthChangeEnemyEventArgs> ValueHealthEnemyChanged;
@@ -17,24 +19,39 @@ public class EnemyHealth : MonoBehaviour
 
     public bool isAlive = true;
 
-    //Funktion die Aufgreufen wird wenn man dem Gegner Damage zufügen will
-    public void TakeDmgEnemy(float amount)
+    public void Awake()
     {
-        ValueHealthEnemyChanged?.Invoke(this, new HealthChangeEnemyEventArgs
-        {
-            amount = amount
-        });
+        enemyStatus.health = enemyStatus.maxHealth;
+        healthHUD = FindObjectOfType<StatusHUDSilderEnemy>();
+            //LoadOnDeath();
+    }
 
-        if(enemyStatus.health < 0 )
-        {
-            enemyStatus.health = 0;
-            Die();
-        }
+    public float GetEnemyHealth()
+    {
+        return enemyStatus.health;
+    }
+
+    //Funktion die Aufgreufen wird wenn man dem Gegner Damage zufügen will
+    public void DecreaseHealth(float amount)
+    {
+        enemyStatus.health -= amount;
+
+        float targetValue = enemyStatus.health - amount;
+        Debug.Log("current amount" + targetValue);
+        healthHUD.SetHealt(GetEnemyHealth(), enemyStatus.maxHealth);
     }
 
     public void Die()
     {
         OnDeath?.Invoke(this, EventArgs.Empty);
-        DestroyImmediate(gameObject, true );
+    }
+
+
+    public void LoadOnDeath()
+    {
+        if(enemyStatus.health <= 0 && SceneManager.GetActiveScene().name == "SampleScene") 
+        {
+            Destroy(gameObject);
+        }
     }
 }

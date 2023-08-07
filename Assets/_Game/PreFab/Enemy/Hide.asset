@@ -21,6 +21,6 @@ MonoBehaviour:
     type: 3}
   level: 1
   maxHealth: 100
-  health: 100
+  health: 0
   stamina: 10
   maxStamina: 10

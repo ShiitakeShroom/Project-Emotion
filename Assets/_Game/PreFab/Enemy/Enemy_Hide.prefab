@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8960376634932470226}
-  - component: {fileID: 6252172636037190449}
   - component: {fileID: 1595354678049446594}
   - component: {fileID: 9138811205562440378}
+  - component: {fileID: 3391573892755914864}
   m_Layer: 0
   m_Name: BattlePresence
   m_TagString: Enemy
@@ -34,20 +34,6 @@ Transform:
   m_Father: {fileID: 2031599767270642978}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6252172636037190449
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7781292985891107365}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59b32b22531e1594a8a6e2e9e4c81a45, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  status: {fileID: 8547996926171595852, guid: 1799ebddf7f5ad346bc903551b66c2d6, type: 3}
-  damage: 50
 --- !u!212 &1595354678049446594
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -113,7 +99,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyStatus: {fileID: 11400000, guid: 98006f7c31de7b04b9ea1aab5b940cfd, type: 2}
+  healthHUD: {fileID: 0}
   isAlive: 1
+--- !u!114 &3391573892755914864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7781292985891107365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 017b1382e9ee3cf4eafbd5863a86f8c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerHealth: {fileID: 8547996926171595852, guid: 1799ebddf7f5ad346bc903551b66c2d6,
+    type: 3}
+  damage: 50
 --- !u!1 &9167650734615493017
 GameObject:
   m_ObjectHideFlags: 0
@@ -256,4 +258,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyStatus: {fileID: 11400000, guid: 98006f7c31de7b04b9ea1aab5b940cfd, type: 2}
+  healthHUD: {fileID: 0}
   isAlive: 1

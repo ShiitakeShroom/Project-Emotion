@@ -5,7 +5,7 @@ using UnityEngine;
 public class DamageEnemy : MonoBehaviour
 {
 
-    public PlayerStatus status;
+    public PlayerHealth playerHealth;
     public float damage = 50f;
     // Start is called before the first frame update
 
@@ -20,7 +20,7 @@ public class DamageEnemy : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.K))
         {
-            status.TakeDamage(damage);
+            playerHealth.DecreaseHealth(damage);
         }
     }
 }

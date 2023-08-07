@@ -14,7 +14,6 @@ public class StatusHUD : MonoBehaviour
 
     public void SetStatusHUD(CharacterStatus status)
     {
-        status.health = status.maxHealth;
         float currentHealth = status.health * (100 / status.maxHealth);
         float currentStamina = status.stamina * (100 / status.maxStamina);
 
@@ -27,9 +26,9 @@ public class StatusHUD : MonoBehaviour
 
     public void SetHP(CharacterStatus status, float hp)
     {   
-        if(gameObject != null) { 
-        StartCoroutine(GraduallySetStatusBar(status, hp, false, 10, 0.05f));
-    
+        if(gameObject != null) 
+        { 
+            StartCoroutine(GraduallySetStatusBar(status, hp, false, 1, 0.05f));
         }
     }
 
@@ -44,8 +43,11 @@ public class StatusHUD : MonoBehaviour
                 float _dAmount = _fAmount / status.maxHealth;//
                 status.health += _fAmount;
                 statusHPBar.fillAmount += _dAmount;
-                if (status.health <= status.maxHealth)
+                if (status.health <= status.maxHealth) 
+                { 
                     statusHPValue.SetText(status.health + ("/") + status.maxHealth);
+                }
+
                 yield return new WaitForSeconds(fillDelay);
             }
         }
@@ -58,11 +60,29 @@ public class StatusHUD : MonoBehaviour
                 status.health -= _fAmount; // 200 - 1 = 199
                 statusHPBar.fillAmount -= _dAmount; // 0,995
                 if (status.health >= 0)
+                {
                     statusHPValue.SetText(status.health + "/" + status.maxHealth);
-
+                }
+                if(status.health < 0)
+                {
+                    statusHPValue.SetText(0 + "/" + status.maxHealth);
+                }
                 yield return new WaitForSeconds(fillDelay);
             }
         }
+
+        /*float startAmount = status.health;
+        float tragetAmount = status.health - amount;
+
+        for(int fillStep = 0; fillStep < fillTimes; fillStep++)
+        {
+            float currentAmount = Mathf.Lerp(startAmount, tragetAmount, (float)fillStep / fillTimes);
+            status.health = currentAmount;
+            statusHPBar.fillAmount = currentAmount / status.maxHealth;
+            statusHPValue.SetText(Mathf.Max(0, currentAmount) + "/" + status.maxHealth);
+            yield return new WaitForSeconds(fillDelay);
+        }*/
+
     }
 }
 

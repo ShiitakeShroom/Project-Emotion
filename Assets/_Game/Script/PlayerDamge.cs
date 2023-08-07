@@ -9,7 +9,10 @@ public class PlayerDamge : MonoBehaviour
     public float damage = 50f;
     // Start is called before the first frame update
 
-
+    public void Start()
+    {
+        enemyHealth = FindObjectOfType<EnemyHealth>();
+    }
     // Update is called once per frame
     void Update()
     {
@@ -20,7 +23,8 @@ public class PlayerDamge : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.K))
         {
-            enemyHealth.TakeDmgEnemy(damage);
+            enemyHealth.DecreaseHealth(damage);
+            Debug.Log("Enemy gets " + damage);
         }
     }
 }
