@@ -11,23 +11,12 @@ public class PlayerHealth : MonoBehaviour
     public StatusHUDSliderPlayer healthSliderPlayer;
 
 
-    public event EventHandler OnDeath;
-    public event EventHandler<HealthChangeEventArgs> ValueHealthChanged;
-
     public void Start()
     {
         healthSliderPlayer = FindObjectOfType<StatusHUDSliderPlayer>();
         LifeReg();
     }
-    public class HealthChangeEventArgs : EventArgs
-    {
-        public float amount;
-    }
 
-    public void Die()
-    {
-        OnDeath?.Invoke(this, EventArgs.Empty);
-    }
 
     public void LifeReg()
     {
@@ -45,12 +34,32 @@ public class PlayerHealth : MonoBehaviour
     {
         playerStatus.health -= amount;
 
+
+        if(playerStatus.health < 0)
+        {
+            playerStatus.health = 0;
+        }
+
+        if (playerStatus.health <= 0)
+        {
+            Die();
+        }
+
         float targetValue = playerStatus.health - amount;
         Debug.Log("current amount" + targetValue);
-
         healthSliderPlayer.SetHealt(GetPlayerHelath(), playerStatus.maxHealth);
     }
 
+
+    public void Die()
+    {
+        Debug.Log("its dead");
+    }
+
+    public bool IsDead()
+    {
+        return playerStatus.health <= 0;
+    }
     public void IncreasHealth(float amount)
     {
         float targetValue = playerStatus.health + amount;

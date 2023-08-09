@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 5712540770709917954, guid: 69a7442ccd2bddb4282ff1e6c2cd39ba,
         type: 3}
       propertyPath: m_Name
-      value: NPC
+      value: NPC Variant
       objectReference: {fileID: 0}
     - target: {fileID: 5712540770709917958, guid: 69a7442ccd2bddb4282ff1e6c2cd39ba,
         type: 3}
@@ -82,5 +82,6 @@ PrefabInstance:
       propertyPath: status
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5712540770709918010, guid: 69a7442ccd2bddb4282ff1e6c2cd39ba, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 69a7442ccd2bddb4282ff1e6c2cd39ba, type: 3}

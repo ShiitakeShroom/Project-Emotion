@@ -9,23 +9,19 @@ public class EnemyHealth : MonoBehaviour
     public CharacterStatus enemyStatus;
     public StatusHUDSilderEnemy healthHUD;
 
-    public event EventHandler OnDeath;
-    public event EventHandler<HealthChangeEnemyEventArgs> ValueHealthEnemyChanged;
-    //Even das benutzt wird damit man nicht die UPDATE funktion immer wieder aufrufen muss
-    public class HealthChangeEnemyEventArgs : EventArgs
-    {
-        public float amount;
-    }
-
     public bool isAlive = true;
 
     public void Awake()
     {
-        enemyStatus.health = enemyStatus.maxHealth;
         healthHUD = FindObjectOfType<StatusHUDSilderEnemy>();
-            //LoadOnDeath();
     }
 
+    public void Start()
+    {   
+        //gibt dem Gegner Maxhealth at the Start of the Level 
+        //enemyStatus.health = enemyStatus.maxHealth;
+        Debug.Log("health"+ enemyStatus.name + GetEnemyHealth());
+    }
     public float GetEnemyHealth()
     {
         return enemyStatus.health;
@@ -36,16 +32,21 @@ public class EnemyHealth : MonoBehaviour
     {
         enemyStatus.health -= amount;
 
+
+        if(enemyStatus.health < 0)
+        {
+            enemyStatus.health = 0;
+        }
+
+        if (enemyStatus.health <= 0)
+        {
+            LoadOnDeath();
+            Debug.Log("Oh no there is Death");
+        }
         float targetValue = enemyStatus.health - amount;
         Debug.Log("current amount" + targetValue);
         healthHUD.SetHealt(GetEnemyHealth(), enemyStatus.maxHealth);
     }
-
-    public void Die()
-    {
-        OnDeath?.Invoke(this, EventArgs.Empty);
-    }
-
 
     public void LoadOnDeath()
     {

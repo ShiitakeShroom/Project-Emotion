@@ -7,11 +7,11 @@ using UnityEngine.UI;
 
 public class StatusManager : MonoBehaviour
 {
-
+    private CharacterStatusManager characterStatusManager;
+    private CharacterStatus enemyStatus;
     public CharacterStatus playerStatus;//bezug auf das GAmeobejct vom Spieler 
-    CharacterStatus currentEnemyStatus;
     public bool isAttacked = false; // schaut ob der Charakter schon im Kampf ist
-
+    public LevelLoader levelLoader;
     //Refernze für Health und EmotionSystem 
 
     public EmotionSystem emotionSystem;
@@ -32,7 +32,8 @@ public class StatusManager : MonoBehaviour
                 { 
                     isAttacked = true;
                     Debug.Log("Gather Dtata ...");
-                    //SetBattleData(other);
+                    PlayerPosition.SavePosition(other.transform.position);
+                    Debug.Log(PlayerPosition.GetPosition());
                     Debug.Log("loadLevel");
                     LevelLoader.instance.LoadLevel("BattleArena");
                 }
@@ -44,6 +45,25 @@ public class StatusManager : MonoBehaviour
     public void Awake()
     {
         emotionSystem = FindObjectOfType<EmotionSystem>();
+        
+    }
+
+    public void Start()
+    {
+        characterStatusManager = CharacterStatusManager.Instance;
+        enemyStatus = characterStatusManager.enemyCharacterStatus;
+        levelLoader = FindObjectOfType<LevelLoader>();
+
+        if (levelLoader.playerWins)
+        {
+            transform.position = PlayerPosition.GetPosition();
+            GameObject enemy = enemyStatus.characterGameObject;
+
+            if(enemy != null)
+            {
+                enemy.SetActive(false);
+            }
+        }
     }
 
     public void UpdateEmotion()
@@ -56,22 +76,5 @@ public class StatusManager : MonoBehaviour
                 //EmotionValue abhängig vom EmotionType speichern oder anzeigen.
             }
         }
-    }
-
-    private void SetBattleData(Collider other)
-    {
-        //Spielerdaten die Gespeichert werden
-        playerStatus.position[0] = this.transform.position.x;
-        playerStatus.position[1] = this.transform.position.y;
-        playerStatus.position[2] = this.transform.position.z;
-
-        //EnemyData
-        CharacterStatus status = other.gameObject.GetComponent<EnemyStatus>().enemyStatus;
-        currentEnemyStatus.charName = status.charName;
-        currentEnemyStatus.characterGameObject = status.characterGameObject;
-        currentEnemyStatus.health = status.health;
-        currentEnemyStatus.maxHealth = status.maxHealth;
-        currentEnemyStatus.stamina = status.stamina;
-        currentEnemyStatus.maxStamina = status.maxStamina;
     }
 }

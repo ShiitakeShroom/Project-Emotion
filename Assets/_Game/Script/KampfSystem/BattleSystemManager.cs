@@ -3,12 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class BattleSystemManager : MonoBehaviour
 {
     public enum BattleState { Start, Battle, Pause, Win, Lose }
     private CharacterStatusManager characterStatusManager;
-    
 
     public PlayerHealth playerHealth;
     public EnemyHealth enemyHealthChange;
@@ -29,13 +29,11 @@ public class BattleSystemManager : MonoBehaviour
 
     public void Start()
     {   //Player
-
-        playerHealth.ValueHealthChanged += ValueHealthChanged;
         characterStatusManager = CharacterStatusManager.Instance;
         enemyStatus = characterStatusManager.enemyCharacterStatus;
+        
+
         //Enemy
-        enemyHealthChange.ValueHealthEnemyChanged += EnemyHPChange;
-        enemyHealthChange.OnDeath += DeathEnemy;
         battleState = BattleState.Start;
         StartCoroutine(BeginBattle());
     }
@@ -67,8 +65,7 @@ public class BattleSystemManager : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
 
         //start Battle
-        battleState = BattleState.Battle;
-        Debug.Log("its a " + battleState);
+        StartCoroutine(ManageBattle());
     }
 
     IEnumerator FadeInOpponents(int steps = 10)
@@ -91,46 +88,68 @@ public class BattleSystemManager : MonoBehaviour
         ob.GetComponent<SpriteRenderer>().color = new Color(currColor.r, currColor.g, currColor.b, alpha);
     }
 
-
-    IEnumerator EndBattle()
+    IEnumerator ManageBattle()
     {
+        battleState = BattleState.Battle;
+        Debug.Log("its a " + battleState);
 
-        //Check if won
-        if (battleState == BattleState.Win)
-        {
-            // you may wish to display some kind
-            // of message or play a victory fanfare
-            // here
-            yield return new WaitForSeconds(1);
-            Debug.Log("Back to Level 1");
-            LevelLoader.instance.LoadLevel("SampleScene");
+        while (battleState == BattleState.Battle)
+        {   //Pausieren des Kampfes
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                StartCoroutine(PauseBattle());
+            }
+
+            if (playerStatus.health <= 0)
+            {
+                Debug.Log("Player is Dead");
+                battleState = BattleState.Lose;
+                StartCoroutine(EndBattle());
+            }
+
+            if (enemyStatus.health <= 0)
+            {
+                Debug.Log("UWU there is Damage");
+                battleState = BattleState.Win;
+                StartCoroutine(EndBattle());
+            }
+
+            yield return null;//Warten auf die nächste Frame aktualisierung 
         }
 
-        else if (battleState == BattleState.Lose)
+        IEnumerator PauseBattle()
         {
-            Debug.Log("Fatality! JErry Wins");
-
-            yield return new WaitForSeconds(1);
-            LevelLoader.instance.LoadLevel("SampleScene");
+            Debug.Log("Time is Frozen");
+            Time.timeScale = 0.25f;
+            yield return new WaitForSeconds(2f);
+            Time.timeScale = 1f;
+            Debug.Log("Return Battle");
+            StartCoroutine(ManageBattle());
         }
-    }
-
-    public void ValueHealthChanged(object sender, PlayerHealth.HealthChangeEventArgs e)
-    {
-
-    }
-
-    public void EnemyHPChange(object sender, EnemyHealth.HealthChangeEnemyEventArgs e)
-    {
-
-    }
 
 
-    public void DeathEnemy(object sender, EventArgs e)
-    {
-        Debug.Log("Enemy is under zero");
-            battleState = BattleState.Win;
-            StartCoroutine(EndBattle());
+        IEnumerator EndBattle()
+        {
+
+            //Check if won
+            if (battleState == BattleState.Win)
+            {
+                // you may wish to display some kind
+                // of message or play a victory fanfare
+                // here
+                yield return new WaitForSeconds(1);
+                Debug.Log("Back to Level 1");
+                LevelLoader.instance.ReturnToOverWorld("SampleScene", true);
+            }
+
+            else if (battleState == BattleState.Lose)
+            {
+                Debug.Log("Fatality! JErry Wins");
+
+                yield return new WaitForSeconds(1);
+                LevelLoader.instance.ReturnToOverWorld("SampleScene", true);
+            }
+        }
     }
 }
 

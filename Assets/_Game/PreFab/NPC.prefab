@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 5712540770709917956}
   - component: {fileID: 5712540770709917957}
   - component: {fileID: 5712540770709918009}
-  - component: {fileID: 5712540770709918010}
   - component: {fileID: 5712540770709918008}
   - component: {fileID: 5712540770709918011}
   m_Layer: 0
@@ -119,20 +118,6 @@ MonoBehaviour:
   interactionEnabled: 0
   alreadyInteracted: 0
   emotionObject: {fileID: 5712540770709918008}
---- !u!114 &5712540770709918010
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5712540770709917954}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59b32b22531e1594a8a6e2e9e4c81a45, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  status: {fileID: 3512638149932295036, guid: 1799ebddf7f5ad346bc903551b66c2d6, type: 3}
-  damage: 50
 --- !u!114 &5712540770709918008
 MonoBehaviour:
   m_ObjectHideFlags: 0
