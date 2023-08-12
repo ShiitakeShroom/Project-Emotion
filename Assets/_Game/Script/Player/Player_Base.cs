@@ -18,6 +18,11 @@ public class Player_Base : MonoBehaviour
 
     public void Start()
     {
+        if (LevelLoader.instance.spawnLoader)
+        {
+           this.transform.position = PlayerPosition.GetPosition();
+        }
+
         //Emotion Events
         status.emotionSystem.NearlyMorbingTime += NearlyMorbingTime;
         status.emotionSystem.OhNoItsMorbingTime += ItsMorbingTime;
@@ -26,6 +31,8 @@ public class Player_Base : MonoBehaviour
     public void Update()
     {
         InteractionPlayer();
+        //ShowList();
+        LoadLevel();
     }
 
     public void InteractionPlayer()
@@ -47,35 +54,23 @@ public class Player_Base : MonoBehaviour
         }
     }
 
-    private void HealthSystem_HandleDamage(object sender, EventArgs e)
+    public void LoadLevel()
     {
-        if (IsAlive)
+        if (Input.GetKeyDown(KeyCode.V))
         {
-
-        }
+            PlayerPosition.SavePosition(this.transform.position);
+            Debug.Log(PlayerPosition.GetPosition());
+            LevelLoader.instance.LoadSpanLevel("SampleScene", true);
+        }   
     }
 
-    private void HealthSystem_OnHealed(object sender, EventArgs e)
+    /*public void ShowList()
     {
-        if (IsAlive == true)
+        if (Input.GetKeyDown(KeyCode.L))
         {
+            DestroyObjectTracker.PrintDestroyedObjectList();
         }
-    }
-
-    private void OnDeathHandler(object sender, EventArgs e)
-    {
-        if (IsAlive == true)
-        {
-            Debug.Log("I´m dead");
-            Application.Quit();
-            Destroy(gameObject);
-        }
-    }
-
-    private void HealthChanged(object sender, EventArgs e)
-    {
-    }
-
+    }*/
 
     private void NearlyMorbingTime(object sender, EventArgs e)
     {

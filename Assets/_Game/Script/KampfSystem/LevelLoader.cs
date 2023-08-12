@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
@@ -17,6 +18,8 @@ public class LevelLoader : MonoBehaviour
     public Animator transition;
     public float transitionTime = 3f;
     public bool playerWins;
+    public bool spawnLoader;
+    public EnemySpawnManager enemySpawnManager;
 
     private void Awake()
     {   
@@ -31,7 +34,7 @@ public class LevelLoader : MonoBehaviour
         
     }
     #endregion
-
+    #region BattleLaden
     public void LoadLevel(string levelName)
     {
         StartCoroutine(LoadNamedLevel(levelName));
@@ -48,12 +51,22 @@ public class LevelLoader : MonoBehaviour
         
         transition.SetTrigger("End");
     }
+    #endregion
 
-
+    #region Win or Lose Loader
     public void ReturnToOverWorld(string levelName, bool victory)
     {
-        playerWins = victory;
-        StartCoroutine(LoadOverworldLevel(levelName));
+        playerWins = true;
+        
+        if(playerWins && charaStatus != null && charaStatus.health > 0 /*&& !DestroyObjectTracker.IsDestroyed(charaStatus.characterGameObject)*/)
+        {
+            StartCoroutine(LoadOverworldLevel(levelName));
+        }
+        else
+        {
+            StartCoroutine(LoadOverworldWithoutBattle(levelName));
+        }
+
     }
 
     IEnumerator LoadOverworldLevel(string levelName)
@@ -61,10 +74,46 @@ public class LevelLoader : MonoBehaviour
         transition.SetTrigger("Start");
         yield return new WaitForSeconds(transitionTime);
 
-        //Den Gespeicherte Position wiedergeben
+        SceneManager.LoadScene(levelName);
+
+        transition.SetTrigger("End");
+    }
+
+    IEnumerator LoadOverworldWithoutBattle(string levelName)
+    {
+        transition.SetTrigger("Start");
+
+        yield return new WaitForSeconds(transitionTime);
 
         SceneManager.LoadScene(levelName);
 
         transition.SetTrigger("End");
+    }
+    #endregion
+    public void LoadSpanLevel(string levelName, bool spawn)
+    {
+            StartCoroutine(LoadSpawnLevel(levelName));
+    }
+
+    IEnumerator LoadSpawnLevel(string levelName)
+    {
+        transition.SetTrigger("Start");
+
+        ResetRespawn();
+
+        yield return new WaitForSeconds(transitionTime);
+
+        SceneManager.LoadScene(levelName);
+
+        transition.SetTrigger("End");
+    }
+
+
+    private void ResetRespawn()
+    {
+        if(enemySpawnManager != null)
+        {
+            enemySpawnManager.SpawnEnemyReset();
+        }
     }
 }

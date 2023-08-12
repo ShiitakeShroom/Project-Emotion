@@ -13,7 +13,4 @@ public class CharacterStatus : ScriptableObject
     public float health;
     public float stamina;
     public float maxStamina;
-
-
-    
 }

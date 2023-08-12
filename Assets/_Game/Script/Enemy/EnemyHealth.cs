@@ -4,24 +4,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+//Das Script ist das BattleHealthScript
 public class EnemyHealth : MonoBehaviour
 {
     public CharacterStatus enemyStatus;
     public StatusHUDSilderEnemy healthHUD;
 
-    public bool isAlive = true;
-
     public void Awake()
     {
         healthHUD = FindObjectOfType<StatusHUDSilderEnemy>();
+        enemyStatus.health = enemyStatus.maxHealth;
     }
 
     public void Start()
-    {   
-        //gibt dem Gegner Maxhealth at the Start of the Level 
-        //enemyStatus.health = enemyStatus.maxHealth;
-        Debug.Log("health"+ enemyStatus.name + GetEnemyHealth());
+    {
+        EnemyLifReg();
     }
+
+    public void EnemyLifReg()
+    {
+        enemyStatus.health = enemyStatus.maxHealth;
+    }
+
     public float GetEnemyHealth()
     {
         return enemyStatus.health;
@@ -40,19 +44,11 @@ public class EnemyHealth : MonoBehaviour
 
         if (enemyStatus.health <= 0)
         {
-            LoadOnDeath();
             Debug.Log("Oh no there is Death");
         }
+
         float targetValue = enemyStatus.health - amount;
         Debug.Log("current amount" + targetValue);
         healthHUD.SetHealt(GetEnemyHealth(), enemyStatus.maxHealth);
-    }
-
-    public void LoadOnDeath()
-    {
-        if(enemyStatus.health <= 0 && SceneManager.GetActiveScene().name == "SampleScene") 
-        {
-            Destroy(gameObject);
-        }
     }
 }

@@ -31,7 +31,7 @@ public class BattleSystemManager : MonoBehaviour
     {   //Player
         characterStatusManager = CharacterStatusManager.Instance;
         enemyStatus = characterStatusManager.enemyCharacterStatus;
-        
+        enemyStatus.health = enemyStatus.maxHealth;
 
         //Enemy
         battleState = BattleState.Start;
@@ -137,6 +137,19 @@ public class BattleSystemManager : MonoBehaviour
                 // you may wish to display some kind
                 // of message or play a victory fanfare
                 // here
+                LevelLoader.instance.playerWins = true;
+
+                //Soll gegner in der Overworld deaktivieren
+                if (enemyStatus.characterGameObject != null)
+                {
+                    enemyStatus.characterGameObject.SetActive(false);
+
+                    if(enemyStatus.characterGameObject != null)
+                    {
+                        Debug.Log("Es ist weg");
+                    }
+                }
+
                 yield return new WaitForSeconds(1);
                 Debug.Log("Back to Level 1");
                 LevelLoader.instance.ReturnToOverWorld("SampleScene", true);
@@ -145,7 +158,7 @@ public class BattleSystemManager : MonoBehaviour
             else if (battleState == BattleState.Lose)
             {
                 Debug.Log("Fatality! JErry Wins");
-
+                LevelLoader.instance.playerWins = false;
                 yield return new WaitForSeconds(1);
                 LevelLoader.instance.ReturnToOverWorld("SampleScene", true);
             }
