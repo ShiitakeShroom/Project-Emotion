@@ -16,6 +16,7 @@ public class Player_Base : MonoBehaviour
     public float interactionSphereRadius = 1f;
     public float maxRangeInteraktion = 5f;
 
+    public SpawnManager spawnManager;
     public EnemyOverWorldSpawnManager enemySpawn;
 
     public void Start()
@@ -25,7 +26,7 @@ public class Player_Base : MonoBehaviour
            this.transform.position = PlayerPosition.GetPosition();
         }
 
-        enemySpawn = FindObjectOfType<EnemyOverWorldSpawnManager>();
+        spawnManager = FindObjectOfType<SpawnManager>();
 
         //Emotion Events
         status.emotionSystem.NearlyMorbingTime += NearlyMorbingTime;
@@ -64,7 +65,16 @@ public class Player_Base : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Y))
         {
-            enemySpawn.SpawnEnemyStart();
+            string enemyNameToSpawn = "Goblin";
+            //SpawnEnemyCharacter(enemyNameToSpawn);
+
+            bool enemyStatus = spawnManager.LoadEnemyStatus(enemyNameToSpawn);
+            Debug.Log("Enemy " + enemyNameToSpawn + " status: " + enemyStatus);
+
+            if (enemyStatus)
+            {
+                spawnManager.SpawnEnemyCharacter(enemyNameToSpawn);
+            }
         }
     }
 

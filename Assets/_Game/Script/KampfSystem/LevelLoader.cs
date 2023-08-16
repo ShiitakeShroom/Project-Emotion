@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
 using UnityEditor;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
@@ -17,7 +18,8 @@ public class LevelLoader : MonoBehaviour
     public CharacterStatus charaStatus;
 
 
-    public Transform[] enemiesTransform;
+    public event EventHandler overworldChange;
+    public event EventHandler battleChange;
     public Animator transition;
     public float transitionTime = 3f;
     public bool playerWins;
@@ -25,7 +27,8 @@ public class LevelLoader : MonoBehaviour
 
     private void Awake()
     {
-        if(instance == null) {
+        if (instance == null)
+        {
             instance = this;
             DontDestroyOnLoad(this.gameObject);
         }
@@ -47,9 +50,10 @@ public class LevelLoader : MonoBehaviour
         transition.SetTrigger("Start");
 
         yield return new WaitForSeconds(transitionTime);
+        battleChange?.Invoke(this, EventArgs.Empty);
 
         SceneManager.LoadScene(levelName);
-        
+
         transition.SetTrigger("End");
     }
     #endregion
@@ -59,7 +63,7 @@ public class LevelLoader : MonoBehaviour
     public void ReturnToOverWorld(string levelName, bool victory)
     {
         playerWins = true;
-        
+
         StartCoroutine(LoadOverworldLevel(levelName));
     }
 
@@ -69,9 +73,9 @@ public class LevelLoader : MonoBehaviour
 
         yield return new WaitForSeconds(transitionTime);
 
-        SceneManager.LoadScene(levelName);
 
-        Debug.Log("Please;(");
+        SceneManager.LoadScene(levelName);
+        overworldChange?.Invoke(this, EventArgs.Empty);
 
         transition.SetTrigger("End");
     }
@@ -79,7 +83,7 @@ public class LevelLoader : MonoBehaviour
 
     public void LoadSpanLevel(string levelName, bool spawn)
     {
-            StartCoroutine(LoadSpawnLevel(levelName));
+        StartCoroutine(LoadSpawnLevel(levelName));
     }
 
     IEnumerator LoadSpawnLevel(string levelName)

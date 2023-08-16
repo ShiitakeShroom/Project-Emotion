@@ -11,6 +11,8 @@ public class StatusManager : MonoBehaviour
     private CharacterStatus enemyStatus;
     public CharacterStatus playerStatus;//bezug auf das GAmeobejct vom Spieler 
     public EnemyScriptSpawn scripty;
+    public SpawnManager spawnManager;
+
 
     public bool isAttacked = false; // schaut ob der Charakter schon im Kampf ist
     //Refernze für Health und EmotionSystem 
@@ -19,7 +21,7 @@ public class StatusManager : MonoBehaviour
     //Emotionswert hinzufügen 
     public float[] emotionValues = new float[System.Enum.GetValues(typeof(EmotionSystem.EmotionType)).Length];
     public EmotionBar emotionSlider;
-
+    public string enemyName;
     void OnTriggerEnter(Collider other)
     {
         if(this.playerStatus.health > 0)//schaut ob der Charakter überhaupt am Leben ist
@@ -34,7 +36,6 @@ public class StatusManager : MonoBehaviour
                     isAttacked = true;
                     Debug.Log("Gather Dtata ...");
                     //Debug.Log(PlayerPosition.GetPosition());
-                    Destroy(other.gameObject);
                     //Debug.Log("loadLevel");
                     LevelLoader.instance.LoadLevel("BattleArena");
                 }
@@ -52,12 +53,14 @@ public class StatusManager : MonoBehaviour
     {
         scripty = FindObjectOfType<EnemyScriptSpawn>();
 
+        spawnManager = FindObjectOfType<SpawnManager>();
+
         if (LevelLoader.instance.playerWins)
         {
             Debug.Log("its a win");
             transform.position = PlayerPosition.GetPosition();
             Debug.Log("Get Psoition");
-            scripty.OnCombatSceneExit();
+            //scripty.OnCombatSceneExit();
         }
     }
 
