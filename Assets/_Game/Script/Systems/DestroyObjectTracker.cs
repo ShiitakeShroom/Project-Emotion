@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 using UnityEngine;
 
 public class DestroyObjectTracker : MonoBehaviour
-{/*
+{
     private static DestroyObjectTracker instanceDestroy;
     private HashSet<string> destroyedObjectsNames = new HashSet<string>();
 
@@ -61,5 +61,5 @@ public class DestroyObjectTracker : MonoBehaviour
                 Debug.Log(objName);
             }
         }
-    }*/
+    }
 }

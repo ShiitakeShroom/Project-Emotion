@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3222937659478651469}
   - component: {fileID: 3222937659478651467}
   - component: {fileID: 8570369205822750746}
+  - component: {fileID: 9041098227761174378}
   m_Layer: 0
   m_Name: "God(Zustands\xFCberwacher)"
   m_TagString: Untagged
@@ -75,3 +76,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyCharacterStatus: {fileID: 0}
   playerCharacterStatus: {fileID: 0}
+--- !u!114 &9041098227761174378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3222937659478651471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dcb1c0ad9a8f254e9620bca30d5b1d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyDatabase:
+    defeatedEnemies: []
+    spawnedEnemies: []

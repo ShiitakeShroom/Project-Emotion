@@ -11,10 +11,12 @@ public class Player_Base : MonoBehaviour
     public bool IsAlive = true;
     public StatusManager status;
 
+
     [Header("Interaktion")]
     public float interactionSphereRadius = 1f;
     public float maxRangeInteraktion = 5f;
 
+    public EnemyOverWorldSpawnManager enemySpawn;
 
     public void Start()
     {
@@ -22,6 +24,8 @@ public class Player_Base : MonoBehaviour
         {
            this.transform.position = PlayerPosition.GetPosition();
         }
+
+        enemySpawn = FindObjectOfType<EnemyOverWorldSpawnManager>();
 
         //Emotion Events
         status.emotionSystem.NearlyMorbingTime += NearlyMorbingTime;
@@ -31,8 +35,9 @@ public class Player_Base : MonoBehaviour
     public void Update()
     {
         InteractionPlayer();
-        //ShowList();
+        ShowList();
         LoadLevel();
+        LoadEnemies();
     }
 
     public void InteractionPlayer()
@@ -54,6 +59,15 @@ public class Player_Base : MonoBehaviour
         }
     }
 
+
+    public void LoadEnemies()
+    {
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            enemySpawn.SpawnEnemyStart();
+        }
+    }
+
     public void LoadLevel()
     {
         if (Input.GetKeyDown(KeyCode.V))
@@ -64,13 +78,13 @@ public class Player_Base : MonoBehaviour
         }   
     }
 
-    /*public void ShowList()
+    public void ShowList()
     {
         if (Input.GetKeyDown(KeyCode.L))
         {
             DestroyObjectTracker.PrintDestroyedObjectList();
         }
-    }*/
+    }
 
     private void NearlyMorbingTime(object sender, EventArgs e)
     {
