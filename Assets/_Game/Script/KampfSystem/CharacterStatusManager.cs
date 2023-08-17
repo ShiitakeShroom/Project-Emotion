@@ -12,6 +12,8 @@ public class CharacterStatusManager : MonoBehaviour
     public CharacterStatus enemyCharacterStatus; 
     public CharacterStatus playerCharacterStatus;
 
+    public static bool isInitialized = false;
+
     private void Awake()
     {       
         //Singelton Script das es maximal einmal ausgeführt wird 
@@ -23,6 +25,16 @@ public class CharacterStatusManager : MonoBehaviour
         {
             _instance = this;
             DontDestroyOnLoad(gameObject);
+        }
+
+        if (!isInitialized)
+        {
+            isInitialized = true;
+            playerCharacterStatus.isHealedMax = false;
+        }
+        else
+        {
+            playerCharacterStatus.isHealedMax = true;
         }
     }
 }

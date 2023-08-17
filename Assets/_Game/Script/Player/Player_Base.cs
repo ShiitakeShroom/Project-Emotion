@@ -11,10 +11,13 @@ public class Player_Base : MonoBehaviour
     public bool IsAlive = true;
     public StatusManager status;
 
+
     [Header("Interaktion")]
     public float interactionSphereRadius = 1f;
     public float maxRangeInteraktion = 5f;
 
+    public SpawnManager spawnManager;
+    public EnemyOverWorldSpawnManager enemySpawn;
 
     public void Start()
     {
@@ -22,6 +25,8 @@ public class Player_Base : MonoBehaviour
         {
            this.transform.position = PlayerPosition.GetPosition();
         }
+
+        spawnManager = FindObjectOfType<SpawnManager>();
 
         //Emotion Events
         status.emotionSystem.NearlyMorbingTime += NearlyMorbingTime;
@@ -31,8 +36,9 @@ public class Player_Base : MonoBehaviour
     public void Update()
     {
         InteractionPlayer();
-        //ShowList();
+        ShowList();
         LoadLevel();
+        LoadEnemies();
     }
 
     public void InteractionPlayer()
@@ -54,6 +60,24 @@ public class Player_Base : MonoBehaviour
         }
     }
 
+
+    public void LoadEnemies()
+    {
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            string enemyNameToSpawn = "Goblin";
+            //SpawnEnemyCharacter(enemyNameToSpawn);
+
+            bool enemyStatus = spawnManager.LoadEnemyStatus(enemyNameToSpawn);
+            Debug.Log("Enemy " + enemyNameToSpawn + " status: " + enemyStatus);
+
+            if (enemyStatus)
+            {
+                spawnManager.SpawnEnemyCharacter(enemyNameToSpawn);
+            }
+        }
+    }
+
     public void LoadLevel()
     {
         if (Input.GetKeyDown(KeyCode.V))
@@ -64,13 +88,13 @@ public class Player_Base : MonoBehaviour
         }   
     }
 
-    /*public void ShowList()
+    public void ShowList()
     {
         if (Input.GetKeyDown(KeyCode.L))
         {
             DestroyObjectTracker.PrintDestroyedObjectList();
         }
-    }*/
+    }
 
     private void NearlyMorbingTime(object sender, EventArgs e)
     {

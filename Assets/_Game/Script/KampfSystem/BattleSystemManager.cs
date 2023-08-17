@@ -10,11 +10,15 @@ public class BattleSystemManager : MonoBehaviour
     public enum BattleState { Start, Battle, Pause, Win, Lose }
     private CharacterStatusManager characterStatusManager;
 
+    //SpawnSystem
+    public List<CharacterStatus> enemyStatus;
+    public List<Transform> spawnPoints;
+    public CharacterStatus selectedEnemyStatus;
+
     public PlayerHealth playerHealth;
     public EnemyHealth enemyHealthChange;
 
     public CharacterStatus playerStatus;
-    public CharacterStatus enemyStatus;
 
     private GameObject player;
     private GameObject enemy;
@@ -28,11 +32,7 @@ public class BattleSystemManager : MonoBehaviour
     private BattleState battleState;
 
     public void Start()
-    {   //Player
-        characterStatusManager = CharacterStatusManager.Instance;
-        enemyStatus = characterStatusManager.enemyCharacterStatus;
-        enemyStatus.health = enemyStatus.maxHealth;
-
+    {
         //Enemy
         battleState = BattleState.Start;
         StartCoroutine(BeginBattle());
@@ -43,7 +43,14 @@ public class BattleSystemManager : MonoBehaviour
     IEnumerator BeginBattle()
     {
         //Spawn Characters
-        enemy = Instantiate(enemyStatus.characterGameObject.transform.GetChild(0).gameObject, enemyTransform); enemy.SetActive(true);
+        //zufälliger EnemyStatus ausgewählt aus der List
+        int randomIndex = UnityEngine.Random.Range(0, enemyStatus.Count);
+        selectedEnemyStatus = enemyStatus[randomIndex];
+        Debug.Log("Enemy is" + selectedEnemyStatus.name);
+
+        SpawnEnemies();
+
+        //enemy = Instantiate(enemyStatus.characterGameObject.transform.GetChild(0).gameObject, enemyTransform); enemy.SetActive(true);
         player = Instantiate(playerStatus.characterGameObject.transform.GetChild(0).gameObject, playerTransform); player.SetActive(true);
 
 
@@ -54,8 +61,10 @@ public class BattleSystemManager : MonoBehaviour
         //Set the Character Stats in the HUD
         playerStatusHUD.SetStatusHUD(playerStatus);
         Debug.Log("Playerhealth" + playerHealth.GetPlayerHelath());
-        enemyStatusHUD.SetStatusHUD(enemyStatus);
-        Debug.Log("Enemy health" + enemyStatus.health);
+
+        enemyStatusHUD.SetStatusHUD(selectedEnemyStatus);
+        Debug.Log("Enemy health" + selectedEnemyStatus.health);
+        Debug.Log(selectedEnemyStatus.name);
 
         yield return new WaitForSeconds(1);
 
@@ -66,6 +75,19 @@ public class BattleSystemManager : MonoBehaviour
 
         //start Battle
         StartCoroutine(ManageBattle());
+    }
+
+    public void SpawnEnemies()
+    {
+        //Mische die List der SpawnPoints
+        spawnPoints.Shuffle();
+
+        //wähle zufällig einen SpawnPoint aus
+        Transform selectedSpawnPoint = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Count)];
+        Debug.Log(selectedSpawnPoint);
+        //Spüawend den zufällig ausgewählten Gegner an der Spawn position
+        enemy = Instantiate(selectedEnemyStatus.characterGameObject.transform.GetChild(0).gameObject, selectedSpawnPoint.position, Quaternion.identity); enemy.SetActive(true);
+
     }
 
     IEnumerator FadeInOpponents(int steps = 10)
@@ -107,7 +129,7 @@ public class BattleSystemManager : MonoBehaviour
                 StartCoroutine(EndBattle());
             }
 
-            if (enemyStatus.health <= 0)
+            if (selectedEnemyStatus.health <= 0)
             {
                 Debug.Log("UWU there is Damage");
                 battleState = BattleState.Win;
@@ -140,7 +162,7 @@ public class BattleSystemManager : MonoBehaviour
                 LevelLoader.instance.playerWins = true;
 
                 //Soll gegner in der Overworld deaktivieren
-                if (enemyStatus.characterGameObject != null)
+                /*if (enemyStatus.characterGameObject != null)
                 {
                     enemyStatus.characterGameObject.SetActive(false);
 
@@ -148,7 +170,7 @@ public class BattleSystemManager : MonoBehaviour
                     {
                         Debug.Log("Es ist weg");
                     }
-                }
+                }*/
 
                 yield return new WaitForSeconds(1);
                 Debug.Log("Back to Level 1");

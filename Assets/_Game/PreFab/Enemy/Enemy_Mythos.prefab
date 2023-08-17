@@ -19,7 +19,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7942430102977629185
 Transform:
   m_ObjectHideFlags: 0
@@ -242,4 +242,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerHealth: {fileID: 8547996926171595852, guid: 1799ebddf7f5ad346bc903551b66c2d6,
     type: 3}
-  damage: 120
+  damage: 25

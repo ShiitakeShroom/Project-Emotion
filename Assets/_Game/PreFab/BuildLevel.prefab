@@ -167,8 +167,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 566007eb0e17a574eb9c439b94f0964e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  charaStatus: {fileID: 0}
+  enemyCharacterStatus: {fileID: 11400000, guid: f43f52fb98c41514ab7fbb46f516c2f5,
+    type: 2}
   transition: {fileID: 6036290241223283016}
   transitionTime: 1
+  playerWins: 0
+  spawnLoader: 0
 --- !u!1 &9203539686732558294
 GameObject:
   m_ObjectHideFlags: 0

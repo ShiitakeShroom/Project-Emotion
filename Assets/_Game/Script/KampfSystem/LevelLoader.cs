@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
 using UnityEditor;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
@@ -15,15 +16,19 @@ public class LevelLoader : MonoBehaviour
     #region Singelton
     public static LevelLoader instance;
     public CharacterStatus charaStatus;
+
+
+    public event EventHandler overworldChange;
+    public event EventHandler battleChange;
     public Animator transition;
     public float transitionTime = 3f;
     public bool playerWins;
     public bool spawnLoader;
-    public EnemySpawnManager enemySpawnManager;
 
     private void Awake()
-    {   
-        if(instance == null) {
+    {
+        if (instance == null)
+        {
             instance = this;
             DontDestroyOnLoad(this.gameObject);
         }
@@ -31,8 +36,8 @@ public class LevelLoader : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        
     }
+
     #endregion
     #region BattleLaden
     public void LoadLevel(string levelName)
@@ -42,78 +47,53 @@ public class LevelLoader : MonoBehaviour
 
     IEnumerator LoadNamedLevel(string levelName)
     {
-
         transition.SetTrigger("Start");
 
         yield return new WaitForSeconds(transitionTime);
+        battleChange?.Invoke(this, EventArgs.Empty);
 
         SceneManager.LoadScene(levelName);
-        
+
         transition.SetTrigger("End");
     }
     #endregion
+
 
     #region Win or Lose Loader
     public void ReturnToOverWorld(string levelName, bool victory)
     {
         playerWins = true;
-        
-        if(playerWins && charaStatus != null && charaStatus.health > 0 /*&& !DestroyObjectTracker.IsDestroyed(charaStatus.characterGameObject)*/)
-        {
-            StartCoroutine(LoadOverworldLevel(levelName));
-        }
-        else
-        {
-            StartCoroutine(LoadOverworldWithoutBattle(levelName));
-        }
 
+        StartCoroutine(LoadOverworldLevel(levelName));
     }
 
     IEnumerator LoadOverworldLevel(string levelName)
     {
         transition.SetTrigger("Start");
-        yield return new WaitForSeconds(transitionTime);
-
-        SceneManager.LoadScene(levelName);
-
-        transition.SetTrigger("End");
-    }
-
-    IEnumerator LoadOverworldWithoutBattle(string levelName)
-    {
-        transition.SetTrigger("Start");
 
         yield return new WaitForSeconds(transitionTime);
 
+
         SceneManager.LoadScene(levelName);
+        overworldChange?.Invoke(this, EventArgs.Empty);
 
         transition.SetTrigger("End");
     }
     #endregion
+
     public void LoadSpanLevel(string levelName, bool spawn)
     {
-            StartCoroutine(LoadSpawnLevel(levelName));
+        StartCoroutine(LoadSpawnLevel(levelName));
     }
 
     IEnumerator LoadSpawnLevel(string levelName)
     {
         transition.SetTrigger("Start");
 
-        ResetRespawn();
-
         yield return new WaitForSeconds(transitionTime);
 
         SceneManager.LoadScene(levelName);
 
         transition.SetTrigger("End");
-    }
-
-
-    private void ResetRespawn()
-    {
-        if(enemySpawnManager != null)
-        {
-            enemySpawnManager.SpawnEnemyReset();
-        }
     }
 }
