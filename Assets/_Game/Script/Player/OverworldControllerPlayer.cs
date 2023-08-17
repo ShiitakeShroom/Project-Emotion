@@ -13,13 +13,17 @@ public class OverworldControllerPlayer : MonoBehaviour
     private Vector3 lastMoveDir;
     public Rigidbody rb;
     private GameObject Player;
-
+    public StatusHUDSliderPlayer statusHUDPlayer;
+    public CharacterStatus playerStatus;
 
     // Start is called before the first frame update
     void Start()
     {
+        statusHUDPlayer = FindObjectOfType<StatusHUDSliderPlayer>();
+
         GameObject Player = this.GameObject();
         rb = GetComponent<Rigidbody>();
+        statusHUDPlayer.SetStatusHUD(playerStatus);
     }
 
     private void Awake()

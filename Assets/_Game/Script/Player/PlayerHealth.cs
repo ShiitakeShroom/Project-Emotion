@@ -7,21 +7,41 @@ using static StatusManager;
 
 public class PlayerHealth : MonoBehaviour
 {
+
+    public event EventHandler HealChangeEvent;
+    public event EventHandler HealthChangeEvent;
+    
     public CharacterStatus playerStatus;
     public StatusHUDSliderPlayer healthSliderPlayer;
 
 
+    bool isRegenHealth;
+    public float lifeRegvalue;
+    public float regTime;
+
     public void Start()
     {
-        healthSliderPlayer = FindObjectOfType<StatusHUDSliderPlayer>();
         LifeReg();
+        healthSliderPlayer = FindObjectOfType<StatusHUDSliderPlayer>();
+        HealthChangeEvent += HealthChange;
+        HealChangeEvent += HealChange;
     }
 
+    public void Update()
+    {
+        if(playerStatus.health != playerStatus.maxHealth && !isRegenHealth)
+        {
+            HealthRegenaration();
+        }
+    }
 
     public void LifeReg()
     {
-        if(SceneManager.GetActiveScene().name == "SampleScene") {
-            playerStatus.health = playerStatus.maxHealth;
+        if (playerStatus.isHealedMax == false)
+        {
+            SetHEalthMax();
+            playerStatus.isHealedMax = true;
+            Debug.Log("we dont heal here");
         }
     }
 
@@ -47,9 +67,20 @@ public class PlayerHealth : MonoBehaviour
 
         float targetValue = playerStatus.health - amount;
         Debug.Log("current amount" + targetValue);
-        healthSliderPlayer.SetHealt(GetPlayerHelath(), playerStatus.maxHealth);
+        HealthChangeEvent?.Invoke(this, EventArgs.Empty);
     }
 
+    public void Heal(float amount)
+    {
+        playerStatus.health += amount;
+        if (playerStatus.health >= playerStatus.maxHealth)
+        {
+            playerStatus.health = playerStatus.maxHealth;
+        }
+        float targetvalue = playerStatus.health + amount;
+        HealthChangeEvent?.Invoke(this, EventArgs.Empty);
+        HealChangeEvent?.Invoke(this, EventArgs.Empty);
+    }
 
     public void Die()
     {
@@ -60,10 +91,42 @@ public class PlayerHealth : MonoBehaviour
     {
         return playerStatus.health <= 0;
     }
-    public void IncreasHealth(float amount)
-    {
-        float targetValue = playerStatus.health + amount;
 
+    public void HealthChange(object sender, EventArgs e)
+    {
+        Debug.Log("Give me that dopamin");
+        healthSliderPlayer.SetHealt(GetPlayerHelath(), playerStatus.maxHealth);
+    }
+
+    public void SetHEalthMax()
+    {
+        playerStatus.health = playerStatus.maxHealth;
+        HealthChangeEvent?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void HealthRegenaration()
+    {
+        regTime = 1f;
+        lifeRegvalue = playerStatus.maxHealth * 0.0005f;
+
+        if(playerStatus.health != playerStatus.maxHealth)
+        {
+            StartCoroutine(RegainHealthOverTime());
+        }
+    }
+    private IEnumerator RegainHealthOverTime()
+    {
+        isRegenHealth = true;
+        while (playerStatus.health < playerStatus.maxHealth)
+        {
+            Heal(lifeRegvalue);
+            yield return new WaitForSeconds(regTime);
+        }
+        isRegenHealth = false;
+    }
+
+    public void HealChange(object sender, EventArgs e)
+    {
         healthSliderPlayer.SetHealt(GetPlayerHelath(), playerStatus.maxHealth);
     }
 }

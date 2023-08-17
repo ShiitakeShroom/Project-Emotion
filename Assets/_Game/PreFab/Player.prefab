@@ -116,6 +116,7 @@ MonoBehaviour:
   playerStatus: {fileID: 11400000, guid: fea497991cacfaf4481867281f99257f, type: 2}
   healthSliderPlayer: {fileID: 2025669150726382132, guid: 5c84ce5d798f64c49a779502cc0920a8,
     type: 3}
+  isMaxHealed: 0
 --- !u!1 &4842457144875696093
 GameObject:
   m_ObjectHideFlags: 0
@@ -273,6 +274,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeedOw: 2
   rb: {fileID: 0}
+  statusHUDPlayer: {fileID: 2025669150726382132, guid: 5c84ce5d798f64c49a779502cc0920a8,
+    type: 3}
+  playerStatus: {fileID: 11400000, guid: fea497991cacfaf4481867281f99257f, type: 2}
 --- !u!114 &4842457144875696106
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -303,6 +307,8 @@ MonoBehaviour:
   status: {fileID: 3512638149932295036}
   interactionSphereRadius: 1
   maxRangeInteraktion: 5
+  spawnManager: {fileID: 0}
+  enemySpawn: {fileID: 0}
 --- !u!114 &3512638149932295036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -316,6 +322,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerStatus: {fileID: 11400000, guid: fea497991cacfaf4481867281f99257f, type: 2}
+  scripty: {fileID: 0}
   spawnManager: {fileID: 0}
   isAttacked: 0
   hasEntererdTrigger: 0
@@ -329,6 +336,7 @@ MonoBehaviour:
   - 0
   - 0
   emotionSlider: {fileID: 0}
+  enemyName: 
 --- !u!114 &8547996926171595852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -343,3 +351,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerStatus: {fileID: 11400000, guid: fea497991cacfaf4481867281f99257f, type: 2}
   healthSliderPlayer: {fileID: 0}
+  isMaxHealed: 0

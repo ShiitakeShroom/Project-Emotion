@@ -1182,6 +1182,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4842457144875696087, guid: 1799ebddf7f5ad346bc903551b66c2d6,
+        type: 3}
+      propertyPath: statusHUDPlayer
+      value: 
+      objectReference: {fileID: 227266401}
     - target: {fileID: 4842457144875696093, guid: 1799ebddf7f5ad346bc903551b66c2d6,
         type: 3}
       propertyPath: m_Name
@@ -1201,6 +1206,11 @@ PrefabInstance:
     - target: {fileID: 8547996926171595852, guid: 1799ebddf7f5ad346bc903551b66c2d6,
         type: 3}
       propertyPath: healthSliderPlayer
+      value: 
+      objectReference: {fileID: 227266401}
+    - target: {fileID: 8547996926171595852, guid: 1799ebddf7f5ad346bc903551b66c2d6,
+        type: 3}
+      propertyPath: statusHUDSliderPlayer
       value: 
       objectReference: {fileID: 227266401}
     m_RemovedComponents:
