@@ -17,7 +17,6 @@ public class Player_Base : MonoBehaviour
     public float maxRangeInteraktion = 5f;
 
     public SpawnManager spawnManager;
-    public EnemyOverWorldSpawnManager enemySpawn;
 
     public void Start()
     {
@@ -36,7 +35,6 @@ public class Player_Base : MonoBehaviour
     public void Update()
     {
         InteractionPlayer();
-        ShowList();
         LoadLevel();
         LoadEnemies();
     }
@@ -86,14 +84,6 @@ public class Player_Base : MonoBehaviour
             Debug.Log(PlayerPosition.GetPosition());
             LevelLoader.instance.LoadSpanLevel("SampleScene", true);
         }   
-    }
-
-    public void ShowList()
-    {
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            DestroyObjectTracker.PrintDestroyedObjectList();
-        }
     }
 
     private void NearlyMorbingTime(object sender, EventArgs e)

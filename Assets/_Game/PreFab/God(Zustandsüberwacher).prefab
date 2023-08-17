@@ -74,4 +74,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyCharacterStatus: {fileID: 0}
-  playerCharacterStatus: {fileID: 0}
+  playerCharacterStatus: {fileID: 11400000, guid: fea497991cacfaf4481867281f99257f,
+    type: 2}
