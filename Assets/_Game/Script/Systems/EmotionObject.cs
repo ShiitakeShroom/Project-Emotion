@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class EmotionObject : MonoBehaviour
 {
-
-    public Player_Base playerBase;
+    public CharacterStatus playerStatus;
 
     public EmotionSystem emotionSystem;
 
@@ -27,9 +26,7 @@ public class EmotionObject : MonoBehaviour
 
     private void Awake()
     {
-        statusManager = FindObjectOfType<StatusManager>();
         emotionSystem = FindObjectOfType<EmotionSystem>();
-        playerBase = FindObjectOfType<Player_Base>();
     }
 
     //Also switch statment wenn man 1 emotion hat zwei emotionen hat oder drei emotioen hat 
@@ -42,9 +39,9 @@ public class EmotionObject : MonoBehaviour
         {
             for (int i = 0; i < numberOfEmotions; i++)
             {
-                emotionSystem.AbsorbEmotion(new EmotionObject.EmotionData[] { emotionData[i] });
+                EmotionData emotion = emotionData[i];
+                emotionSystem.AbsorbEmotion(new EmotionObject.EmotionData[] { emotion});
             }
-
             emotionAbsorbed = true;
         }
     }

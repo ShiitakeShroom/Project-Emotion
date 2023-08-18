@@ -3,28 +3,26 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static EmotionObject;
 
 [CreateAssetMenu(fileName = "Health/EmotionStatusData", menuName = "StatusObject/Health", order = 0)]
 public class CharacterStatus : ScriptableObject
 {
     public string charName = "name"; //GIbt dem File einen Namen 
-    public float[] position = new float[3];
     public GameObject characterGameObject;
+    public EmotionSystem emotionSystem;
+
     public int level = 1;
     public float maxHealth;
     public float health;
     public float stamina;
     public float maxStamina;
-
     public bool isHealedMax = false;
-    private const string FirstTimeKey = "FirstTime";
 
-    private void Awake()
+    public void UpdateEmotions(EmotionSystem.FloatValue[] newEmotionValues)
     {
-        if(PlayerPrefs.GetInt(FirstTimeKey, 0) == 0)
-        {
-            PlayerPrefs.SetInt(FirstTimeKey, 1);
-            isHealedMax = false;
-        }
+        emotionSystem.UpdateEmotions(newEmotionValues);
     }
+
+
 }

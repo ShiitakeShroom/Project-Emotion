@@ -7,6 +7,7 @@ public class AchtsamkeitsMenu : MonoBehaviour
 {
     public static bool playerLooksAfterEmotion = false;
     public GameObject mindfulnessMenuUI;
+    public EmotionBar[] emotionBars;
 
     public float timer = 2f;
     public float elapsedTime = 0.0f;
@@ -55,5 +56,10 @@ public class AchtsamkeitsMenu : MonoBehaviour
         playerLooksAfterEmotion = true;
         mindfulnessMenuUI.SetActive(true);
         Time.timeScale = slowMotion; //slow time
+
+        foreach(EmotionBar emotionBars in emotionBars)
+        {
+            emotionBars.UpdateEmotionBarFromSystem();
+        }
     }
 }

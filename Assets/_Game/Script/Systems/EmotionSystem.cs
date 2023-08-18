@@ -99,6 +99,12 @@ public class EmotionSystem: MonoBehaviour
         }
     }
 
+    public void UpdateEmotions(FloatValue[] newEmotionValues)
+    {
+        emotionValues = newEmotionValues;
+        CheckMonsterTransformation();
+    }
+
     // Methode zum Abrufen des Emotionswerts einer bestimmten Emotion
     public float GetEmotionValue(EmotionType emotionType)
     {
