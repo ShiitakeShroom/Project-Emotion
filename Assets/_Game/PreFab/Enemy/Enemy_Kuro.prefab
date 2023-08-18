@@ -140,6 +140,7 @@ GameObject:
   - component: {fileID: 5615462477836876689}
   - component: {fileID: 2674684770000960489}
   - component: {fileID: 5310957802178708294}
+  - component: {fileID: 56069125904335108}
   m_Layer: 0
   m_Name: BattlePresence
   m_TagString: Untagged
@@ -243,3 +244,21 @@ MonoBehaviour:
   playerHealth: {fileID: 8547996926171595852, guid: 1799ebddf7f5ad346bc903551b66c2d6,
     type: 3}
   damage: 25
+--- !u!114 &56069125904335108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3472630738285908854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4718240ff7e1f1043848de2671a8d53e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 3
+  battleSystemManager: {fileID: 0}
+  wayPoints: []
+  whatsStopsMovement:
+    serializedVersion: 2
+    m_Bits: 0

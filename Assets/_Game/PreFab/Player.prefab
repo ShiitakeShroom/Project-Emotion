@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7562408857305871161}
   - component: {fileID: 393587724063188330}
   - component: {fileID: 1028619003168699854}
+  - component: {fileID: 6717550812317977942}
   m_Layer: 0
   m_Name: BattlePresence
   m_TagString: Untagged
@@ -30,7 +31,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 5636740953934802340}
   m_Father: {fileID: 4842457144875696080}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -116,7 +118,26 @@ MonoBehaviour:
   playerStatus: {fileID: 11400000, guid: fea497991cacfaf4481867281f99257f, type: 2}
   healthSliderPlayer: {fileID: 2025669150726382132, guid: 5c84ce5d798f64c49a779502cc0920a8,
     type: 3}
-  isMaxHealed: 0
+  lifeRegvalue: 0
+  regTime: 0
+--- !u!114 &6717550812317977942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2345937692414540560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b90b9dae1662985479113901877dac2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeedBattle: 5
+  movePoint: {fileID: 5636740953934802340}
+  jumpTime: 0.5
+  whatStopsMovement:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &4842457144875696093
 GameObject:
   m_ObjectHideFlags: 0
@@ -308,7 +329,6 @@ MonoBehaviour:
   interactionSphereRadius: 1
   maxRangeInteraktion: 5
   spawnManager: {fileID: 0}
-  enemySpawn: {fileID: 0}
 --- !u!114 &3512638149932295036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -322,7 +342,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerStatus: {fileID: 11400000, guid: fea497991cacfaf4481867281f99257f, type: 2}
-  scripty: {fileID: 0}
   spawnManager: {fileID: 0}
   isAttacked: 0
   hasEntererdTrigger: 0
@@ -351,4 +370,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerStatus: {fileID: 11400000, guid: fea497991cacfaf4481867281f99257f, type: 2}
   healthSliderPlayer: {fileID: 0}
-  isMaxHealed: 0
+  lifeRegvalue: 0
+  regTime: 0
+--- !u!1 &6170434427480948317
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5636740953934802340}
+  m_Layer: 0
+  m_Name: MovePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5636740953934802340
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6170434427480948317}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 20721074586290391}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

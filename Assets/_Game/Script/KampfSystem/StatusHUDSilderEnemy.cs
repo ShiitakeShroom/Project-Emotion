@@ -6,47 +6,32 @@ using UnityEngine.UI;
 
 public class StatusHUDSilderEnemy : MonoBehaviour
 {
-    public TextMeshProUGUI statusHPValue;
-    public Image statusStaminaBar;
-    public TextMeshProUGUI statusStatimaValue;
-    public Slider statusHPBar;
-
+    public Slider enemyHealthBarSlider;
+    public Transform tragetEnemy; //Der Gegner, über dem die Healthbar erscheinen soll
+    public Vector3 offset = new Vector3(0f, 2f, 0f);
+    
+    //setzt das Leben des Gegners in die Healthbar
     public void SetStatusHUD(CharacterStatus status)
     {
-        //float currentHealth = status.health * (100 / status.maxHealth);
-        float currentStamina = status.stamina * (100 / status.maxStamina);
-
-        statusHPBar.maxValue = status.maxHealth;
-        statusHPBar.value = status.health;
-        statusHPValue.SetText(status.health + "/" + status.maxHealth);
-
-        statusStaminaBar.fillAmount = currentStamina / 100;
-        statusStatimaValue.SetText(status.stamina + ("/") + status.maxStamina);
+        enemyHealthBarSlider.maxValue = status.maxHealth;
+        enemyHealthBarSlider.value = status.health;
     }
-
-    public void SetHealt(float currentValue, float maxValue)
+    //Aktualisiert die die Healthbar
+    public void SetHealt(float currentValue)
     {
-
-        statusHPBar.value = currentValue;
-        statusHPValue.SetText(currentValue + "/" + maxValue);
-        /*if (gameObject != null)
+        if (enemyHealthBarSlider != null)
         {
-            StartCoroutine(GraduallySetStatusBar(status, amount, 10, 0.05f));
-        }*/
-    }
-
-    /*IEnumerator GraduallySetStatusBar(CharacterStatus status, float targetValue, int fillTimes, float fillDelay)
-    {
-        float startValue = statusHPBar.value; //400
-        float step = (targetValue - startValue) / fillTimes;
-
-        for (int fillStep = 0; fillStep < fillTimes; fillStep++)
-        {
-            statusHPBar.value += step;  // -35; () *10)
-
-            statusHPValue.SetText(status.health + "/" + status.maxHealth);
-
-            yield return new WaitForSeconds(fillDelay);
+            enemyHealthBarSlider.value = currentValue;
         }
-    }*/
+    }
+
+    //der LebensBalken verfolgt den Gegner bei der Bewegung
+    public void Update()
+    {
+        if (tragetEnemy != null)
+        {
+            Vector3 screenPos = Camera.main.WorldToScreenPoint(tragetEnemy.position + offset);
+            enemyHealthBarSlider.transform.position = screenPos;
+        }
+    }
 }

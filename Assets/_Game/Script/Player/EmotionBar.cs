@@ -10,8 +10,6 @@ public class EmotionBar : MonoBehaviour
     public Slider emotionSlider;
     //The Array of Emotions 
     public EmotionSystem.EmotionType emotionTypeToDisplay;
-    public CharacterStatus playerStatus;
-
 
     public void Awake()
     {
@@ -24,7 +22,6 @@ public class EmotionBar : MonoBehaviour
         SetMaxEmotion(emotionSystem.maxEmotionValue);
     }
 
-
     private void OnEmotionValueChanged(object sender, EmotionSystem.EmotionChangedEventArgs e)
     {
         if (e.emotionType == emotionTypeToDisplay)
@@ -33,20 +30,22 @@ public class EmotionBar : MonoBehaviour
         }
     }
 
-    public void UpdateEmotionBarFromSystem()
-    {
-        SetEmotion(emotionSystem.GetEmotionValue(emotionTypeToDisplay));
-    }
-    public void SetMaxEmotion(float maxEmotionValue)
-    {
-
-        emotionSlider.maxValue = maxEmotionValue;
-
-    }
-
     //Set the current emotion to value of the Slider
     public void SetEmotion(float emotionValue)
     {
         emotionSlider.value = emotionValue;
     }
+
+    public void UpdateEmotionBarFromSystem()
+    {
+        Debug.Log("Updating emotion:" + emotionTypeToDisplay);
+        float updateEmotionValue = emotionSystem.GetEmotionValue(emotionTypeToDisplay);
+        Debug.Log("New emotion value:" + updateEmotionValue);
+        SetEmotion(updateEmotionValue);
+    }
+    public void SetMaxEmotion(float maxEmotionValue)
+    {
+        emotionSlider.maxValue = maxEmotionValue;
+    }
+
 }

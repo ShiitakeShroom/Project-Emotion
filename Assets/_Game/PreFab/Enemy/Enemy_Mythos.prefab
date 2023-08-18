@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8042662403937355883}
   - component: {fileID: 7053629470127013859}
   - component: {fileID: 8375233451774718167}
+  - component: {fileID: 150912818336945361}
   m_Layer: 0
   m_Name: Enemy_Mythos
   m_TagString: Enemy
@@ -128,6 +129,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
+--- !u!114 &150912818336945361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 950988382378254522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4718240ff7e1f1043848de2671a8d53e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 3
+  battleSystemManager: {fileID: 0}
+  wayPoints: []
+  whatsStopsMovement:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &1870167703506922246
 GameObject:
   m_ObjectHideFlags: 0

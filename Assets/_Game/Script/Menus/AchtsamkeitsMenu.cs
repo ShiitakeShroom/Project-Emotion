@@ -6,12 +6,17 @@ using UnityEngine;
 public class AchtsamkeitsMenu : MonoBehaviour
 {
     public static bool playerLooksAfterEmotion = false;
-    public GameObject mindfulnessMenuUI;
-    public EmotionBar[] emotionBars;
+    public CanvasGroup mindfulnessMenuUI;
+    public List<EmotionBar> emotionBars;
 
     public float timer = 2f;
     public float elapsedTime = 0.0f;
     public float slowMotion;
+
+    public void Start()
+    {
+        
+    }
 
     void Update()
     {
@@ -42,24 +47,31 @@ public class AchtsamkeitsMenu : MonoBehaviour
         }
     }
 
-    void ResumeGame()
-    {
-
-        playerLooksAfterEmotion = false;
-        mindfulnessMenuUI.SetActive(false);
-        Time.timeScale = 1.0f; //ResumeTime
-        elapsedTime = 0.0f;
-    }
-
     void PauseGame()
     {
+        mindfulnessMenuUI.alpha = 1f;
         playerLooksAfterEmotion = true;
-        mindfulnessMenuUI.SetActive(true);
         Time.timeScale = slowMotion; //slow time
 
-        foreach(EmotionBar emotionBars in emotionBars)
+        foreach (EmotionBar emotionBar in emotionBars)
         {
-            emotionBars.UpdateEmotionBarFromSystem();
+            emotionBar.gameObject.SetActive(true);
+            emotionBar.UpdateEmotionBarFromSystem();
         }
     }
+
+    void ResumeGame()
+    {
+        playerLooksAfterEmotion = false;
+        mindfulnessMenuUI.alpha = 0f;
+        Time.timeScale = 1.0f; //ResumeTime
+        elapsedTime = 0.0f;
+
+        foreach (EmotionBar emotionBar in emotionBars)
+        {
+            emotionBar.gameObject.SetActive(true);
+            emotionBar.UpdateEmotionBarFromSystem();
+        }
+    }
+
 }

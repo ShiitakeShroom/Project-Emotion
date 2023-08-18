@@ -49,6 +49,6 @@ public class EnemyHealth : MonoBehaviour
 
         float targetValue = enemyStatus.health - amount;
         Debug.Log("current amount" + targetValue);
-        healthHUD.SetHealt(GetEnemyHealth(), enemyStatus.maxHealth);
+        healthHUD.SetHealt(GetEnemyHealth());
     }
 }

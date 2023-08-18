@@ -94,7 +94,6 @@ public class PlayerHealth : MonoBehaviour
 
     public void HealthChange(object sender, EventArgs e)
     {
-        Debug.Log("Give me that dopamin");
         healthSliderPlayer.SetHealt(GetPlayerHelath(), playerStatus.maxHealth);
     }
 

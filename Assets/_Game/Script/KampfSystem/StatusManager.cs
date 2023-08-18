@@ -10,7 +10,6 @@ public class StatusManager : MonoBehaviour
     private CharacterStatusManager characterStatusManager;
     private CharacterStatus enemyStatus;
     public CharacterStatus playerStatus;//bezug auf das GAmeobejct vom Spieler 
-    public EnemyScriptSpawn scripty;
     public SpawnManager spawnManager;
 
 
@@ -51,8 +50,6 @@ public class StatusManager : MonoBehaviour
 
     public void Start()
     {
-        scripty = FindObjectOfType<EnemyScriptSpawn>();
-
         spawnManager = FindObjectOfType<SpawnManager>();
 
         if (LevelLoader.instance.playerWins)

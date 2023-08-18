@@ -87,7 +87,7 @@ public class BattleSystemManager : MonoBehaviour
         Debug.Log(selectedSpawnPoint);
         //Spüawend den zufällig ausgewählten Gegner an der Spawn position
         enemy = Instantiate(selectedEnemyStatus.characterGameObject.transform.GetChild(0).gameObject, selectedSpawnPoint.position, Quaternion.identity); enemy.SetActive(true);
-
+        enemyStatusHUD.tragetEnemy = enemy.transform;
     }
 
     IEnumerator FadeInOpponents(int steps = 10)
