@@ -20,6 +20,10 @@ public class BattleSystemManager : MonoBehaviour
 
     public CharacterStatus playerStatus;
 
+    [Header("Scripts")]
+    private EnemyBattleMovementAi enemyBattleMovementAi;
+    private BattleControllerPlayer battleControllerPlayer;
+
     private GameObject player;
     private GameObject enemy;
 
@@ -36,6 +40,9 @@ public class BattleSystemManager : MonoBehaviour
         //Enemy
         battleState = BattleState.Start;
         StartCoroutine(BeginBattle());
+
+        battleControllerPlayer = FindObjectOfType<BattleControllerPlayer>();
+        enemyBattleMovementAi = FindObjectOfType<EnemyBattleMovementAi>();
     }
 
 
@@ -114,6 +121,9 @@ public class BattleSystemManager : MonoBehaviour
     {
         battleState = BattleState.Battle;
         Debug.Log("its a " + battleState);
+
+        battleControllerPlayer.enabled = true;
+        enemyBattleMovementAi.enabled = true;
 
         while (battleState == BattleState.Battle)
         {   //Pausieren des Kampfes

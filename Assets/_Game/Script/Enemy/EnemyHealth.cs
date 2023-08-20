@@ -34,6 +34,7 @@ public class EnemyHealth : MonoBehaviour
     //Funktion die Aufgreufen wird wenn man dem Gegner Damage zufügen will
     public void DecreaseHealth(float amount)
     {
+        Debug.Log("Takes DMG");
         enemyStatus.health -= amount;
 
 

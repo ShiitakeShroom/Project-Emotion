@@ -21,6 +21,8 @@ public class StatusManager : MonoBehaviour
     public float[] emotionValues = new float[System.Enum.GetValues(typeof(EmotionSystem.EmotionType)).Length];
     public EmotionBar emotionSlider;
     public string enemyName;
+
+
     void OnTriggerEnter(Collider other)
     {
         if(this.playerStatus.health > 0)//schaut ob der Charakter überhaupt am Leben ist

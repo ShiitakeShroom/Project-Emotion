@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.WSA;
 
 public class BattleControllerPlayer : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class BattleControllerPlayer : MonoBehaviour
     public float moveSpeedBattle =5f;
     public Transform movePoint; 
     public float jumpTime = 0.05f;
+    public AbilityHolder _holder;
+    public Animator animator;
+
 
     //Collider ansprache
     [Header("Movement")]
@@ -22,15 +26,19 @@ public class BattleControllerPlayer : MonoBehaviour
     }
 
     public void Start()
-    {
+    {   
+        animator = GetComponent<Animator>();
         SetMovePointParentToNull();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
         Movement();
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            _holder.TriggerAbility();
+        }
     }
 
     public void Movement()

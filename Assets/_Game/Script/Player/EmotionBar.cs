@@ -38,9 +38,7 @@ public class EmotionBar : MonoBehaviour
 
     public void UpdateEmotionBarFromSystem()
     {
-        Debug.Log("Updating emotion:" + emotionTypeToDisplay);
         float updateEmotionValue = emotionSystem.GetEmotionValue(emotionTypeToDisplay);
-        Debug.Log("New emotion value:" + updateEmotionValue);
         SetEmotion(updateEmotionValue);
     }
     public void SetMaxEmotion(float maxEmotionValue)

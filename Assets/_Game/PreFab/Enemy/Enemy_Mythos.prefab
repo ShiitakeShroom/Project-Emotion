@@ -13,14 +13,13 @@ GameObject:
   - component: {fileID: 8042662403937355883}
   - component: {fileID: 7053629470127013859}
   - component: {fileID: 8375233451774718167}
-  - component: {fileID: 150912818336945361}
   m_Layer: 0
   m_Name: Enemy_Mythos
-  m_TagString: Enemy
+  m_TagString: Feind
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7942430102977629185
 Transform:
   m_ObjectHideFlags: 0
@@ -129,24 +128,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
---- !u!114 &150912818336945361
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 950988382378254522}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4718240ff7e1f1043848de2671a8d53e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 3
-  battleSystemManager: {fileID: 0}
-  wayPoints: []
-  whatsStopsMovement:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!1 &1870167703506922246
 GameObject:
   m_ObjectHideFlags: 0
@@ -159,9 +140,11 @@ GameObject:
   - component: {fileID: 7217943645978231777}
   - component: {fileID: 926346789523522457}
   - component: {fileID: 6708627711251945811}
+  - component: {fileID: 3314518273175509891}
+  - component: {fileID: 7252463297720418686}
   m_Layer: 0
   m_Name: BattlePresence
-  m_TagString: Enemy
+  m_TagString: Feind
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -262,3 +245,34 @@ MonoBehaviour:
   playerHealth: {fileID: 8547996926171595852, guid: 1799ebddf7f5ad346bc903551b66c2d6,
     type: 3}
   damage: 25
+--- !u!114 &3314518273175509891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1870167703506922246}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4718240ff7e1f1043848de2671a8d53e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 3
+  battleSystemManager: {fileID: 0}
+  wayPoints: []
+  whatsStopsMovement:
+    serializedVersion: 2
+    m_Bits: 0
+--- !u!135 &7252463297720418686
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1870167703506922246}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.98
+  m_Center: {x: 1.13, y: 0, z: 0}

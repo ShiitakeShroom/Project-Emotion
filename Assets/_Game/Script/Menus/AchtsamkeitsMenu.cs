@@ -55,7 +55,6 @@ public class AchtsamkeitsMenu : MonoBehaviour
 
         foreach (EmotionBar emotionBar in emotionBars)
         {
-            emotionBar.gameObject.SetActive(true);
             emotionBar.UpdateEmotionBarFromSystem();
         }
     }
@@ -69,7 +68,6 @@ public class AchtsamkeitsMenu : MonoBehaviour
 
         foreach (EmotionBar emotionBar in emotionBars)
         {
-            emotionBar.gameObject.SetActive(true);
             emotionBar.UpdateEmotionBarFromSystem();
         }
     }

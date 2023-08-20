@@ -15,12 +15,15 @@ public class OverworldControllerPlayer : MonoBehaviour
     private GameObject Player;
     public StatusHUDSliderPlayer statusHUDPlayer;
     public CharacterStatus playerStatus;
+    public Animator animator;
+
+    [SerializeField] private AbilityHolder _holder;
 
     // Start is called before the first frame update
     void Start()
     {
         statusHUDPlayer = FindObjectOfType<StatusHUDSliderPlayer>();
-
+        animator = GetComponent<Animator>();
         GameObject Player = this.GameObject();
         rb = GetComponent<Rigidbody>();
         statusHUDPlayer.SetStatusHUD(playerStatus);
@@ -34,9 +37,14 @@ public class OverworldControllerPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         HandleMovement();
 
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log("i use it");
+            animator.SetTrigger("AreaAttack");
+            _holder.TriggerAbility();
+        }
     }
 
     private void HandleMovement()
