@@ -168,8 +168,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charaStatus: {fileID: 0}
-  enemyCharacterStatus: {fileID: 11400000, guid: f43f52fb98c41514ab7fbb46f516c2f5,
-    type: 2}
   transition: {fileID: 6036290241223283016}
   transitionTime: 1
   playerWins: 0

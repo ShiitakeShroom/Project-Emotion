@@ -18,7 +18,7 @@ public class OverworldControllerPlayer : MonoBehaviour
     public Animator animator;
 
     [SerializeField] private AbilityHolder _holder;
-
+    [SerializeField] private AbilityHolder holderProjectil;
     // Start is called before the first frame update
     void Start()
     {
@@ -41,9 +41,12 @@ public class OverworldControllerPlayer : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log("i use it");
-            animator.SetTrigger("AreaAttack");
             _holder.TriggerAbility();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            holderProjectil.TriggerAbility();
         }
     }
 

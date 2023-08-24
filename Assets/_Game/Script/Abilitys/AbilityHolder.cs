@@ -15,7 +15,6 @@ public class AbilityHolder : MonoBehaviour
     //Currentstate used to determain what to do once the ability is triggerd.
     public AbilityStates CurrentAbilityState = AbilityStates.ReadyToUse;
 
-
     private IEnumerator _handleAbilityUsage;
 
     //Unity Event to Add custom behaviors from editor code once ability is triggerd.

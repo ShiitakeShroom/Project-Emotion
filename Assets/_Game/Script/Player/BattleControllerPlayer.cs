@@ -12,7 +12,8 @@ public class BattleControllerPlayer : MonoBehaviour
     public float moveSpeedBattle =5f;
     public Transform movePoint; 
     public float jumpTime = 0.05f;
-    public AbilityHolder _holder;
+    public AbilityHolder _holderArea;
+    public AbilityHolder holderProjectil;
     public Animator animator;
 
 
@@ -37,7 +38,11 @@ public class BattleControllerPlayer : MonoBehaviour
         Movement();
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            _holder.TriggerAbility();
+            _holderArea.TriggerAbility();
+        }
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            holderProjectil.TriggerAbility();
         }
     }
 

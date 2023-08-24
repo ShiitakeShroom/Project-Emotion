@@ -13,14 +13,12 @@ MonoBehaviour:
   m_Name: Hide
   m_EditorClassIdentifier: 
   charName: Kuro
-  position:
-  - 0
-  - 0
-  - 0
   characterGameObject: {fileID: 9167650734615493017, guid: 05f2e9b56eae67644b58e9ccca601fc1,
     type: 3}
+  emotionSystem: {fileID: 0}
   level: 1
   maxHealth: 100
   health: 0
   stamina: 10
   maxStamina: 10
+  isHealedMax: 0
