@@ -13,7 +13,11 @@ public class OverworldControllerPlayer : MonoBehaviour
     private Vector3 lastMoveDir;
     public Rigidbody rb;
     private GameObject Player;
+    
     public StatusHUDSliderPlayer statusHUDPlayer;
+
+    public List<EmotionBar> emotionBars;
+
     public CharacterStatus playerStatus;
     public Animator animator;
 
@@ -23,15 +27,23 @@ public class OverworldControllerPlayer : MonoBehaviour
     void Start()
     {
         statusHUDPlayer = FindObjectOfType<StatusHUDSliderPlayer>();
+        
         animator = GetComponent<Animator>();
         GameObject Player = this.GameObject();
         rb = GetComponent<Rigidbody>();
         statusHUDPlayer.SetStatusHUD(playerStatus);
+
     }
 
     private void Awake()
     {
         Debug.Log($"OW");
+
+
+        foreach (EmotionBar emotionBar in emotionBars)
+        {
+            emotionBar.UpdateEmotionBarFromSystem();
+        }
     }
 
     // Update is called once per frame

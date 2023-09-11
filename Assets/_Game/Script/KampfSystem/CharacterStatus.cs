@@ -12,17 +12,12 @@ public class CharacterStatus : ScriptableObject
     public GameObject characterGameObject;
     public EmotionSystem emotionSystem;
 
+    //public float[] emotionValues = new float[System.Enum.GetValues(typeof(EmotionSystem.EmotionType)).Length];
+
     public int level = 1;
     public float maxHealth;
     public float health;
     public float stamina;
     public float maxStamina;
     public bool isHealedMax = false;
-
-    public void UpdateEmotions(EmotionSystem.FloatValue[] newEmotionValues)
-    {
-        emotionSystem.UpdateEmotions(newEmotionValues);
-    }
-
-
 }

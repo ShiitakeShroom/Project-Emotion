@@ -572,7 +572,7 @@ PrefabInstance:
     - target: {fileID: 2863534842806869918, guid: 05f2e9b56eae67644b58e9ccca601fc1,
         type: 3}
       propertyPath: viewDistance
-      value: 2.5
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2863534842806869918, guid: 05f2e9b56eae67644b58e9ccca601fc1,
         type: 3}
@@ -581,9 +581,29 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2863534842806869918, guid: 05f2e9b56eae67644b58e9ccca601fc1,
         type: 3}
+      propertyPath: detectionRange
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2863534842806869918, guid: 05f2e9b56eae67644b58e9ccca601fc1,
+        type: 3}
       propertyPath: detextionRange
       value: 2.5
       objectReference: {fileID: 0}
+    - target: {fileID: 2863534842806869918, guid: 05f2e9b56eae67644b58e9ccca601fc1,
+        type: 3}
+      propertyPath: detectionRadius
+      value: 2.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 2863534842806869918, guid: 05f2e9b56eae67644b58e9ccca601fc1,
+        type: 3}
+      propertyPath: detetctionAngle
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 2863534842806869918, guid: 05f2e9b56eae67644b58e9ccca601fc1,
+        type: 3}
+      propertyPath: projectilHolder
+      value: 
+      objectReference: {fileID: 849457782}
     - target: {fileID: 2863534842806869918, guid: 05f2e9b56eae67644b58e9ccca601fc1,
         type: 3}
       propertyPath: raycastDistance
@@ -758,6 +778,26 @@ PrefabInstance:
         type: 3}
       propertyPath: whatsStopsMovement.m_Bits
       value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 5985096947659165811, guid: 05f2e9b56eae67644b58e9ccca601fc1,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 5985096947659165811, guid: 05f2e9b56eae67644b58e9ccca601fc1,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 5985096947659165811, guid: 05f2e9b56eae67644b58e9ccca601fc1,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5985096947659165811, guid: 05f2e9b56eae67644b58e9ccca601fc1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 270
       objectReference: {fileID: 0}
     - target: {fileID: 8960376634932470226, guid: 05f2e9b56eae67644b58e9ccca601fc1,
         type: 3}
@@ -2316,6 +2356,37 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &849457781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 849457768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00a1ca25c83ab3d42b3dc4ec4b822a84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentCharacterState: 0
+--- !u!114 &849457782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 849457768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f961f78e20bd4f4abf44860ade67919, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  owner: {fileID: 849457781}
+  Ability: {fileID: 11400000, guid: 378558ae80b0246468ecf2b53e0ec359, type: 2}
+  CurrentAbilityState: 0
+  OnTriggerAbility:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &865490024
 GameObject:
   m_ObjectHideFlags: 0
@@ -4000,6 +4071,12 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 1649372820731347289, guid: 1799ebddf7f5ad346bc903551b66c2d6,
+        type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000,
+        type: 0}
     - target: {fileID: 1649372820731347289, guid: 1799ebddf7f5ad346bc903551b66c2d6,
         type: 3}
       propertyPath: m_Layer

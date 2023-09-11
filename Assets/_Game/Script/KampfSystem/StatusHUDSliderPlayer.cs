@@ -19,17 +19,16 @@ public class StatusHUDSliderPlayer : MonoBehaviour
 
         statusHPBar.maxValue = status.maxHealth;
         statusHPBar.value = status.health;
-        statusHPValue.SetText(status.health + "/" + status.maxHealth);
+        statusHPValue.SetText(status.health + "");
 
         statusStaminaBar.fillAmount = currentStamina / 100;
-        statusStatimaValue.SetText(status.stamina + ("/") + status.maxStamina);
     }
 
     public void SetHealt(float currentValue, float maxValue)
     {
 
         statusHPBar.value = currentValue;
-        statusHPValue.SetText(currentValue + "/" + maxValue);
+        statusHPValue.SetText(currentValue + "");
         /*if (gameObject != null)
         {
             StartCoroutine(GraduallySetStatusBar(status, amount, 10, 0.05f));

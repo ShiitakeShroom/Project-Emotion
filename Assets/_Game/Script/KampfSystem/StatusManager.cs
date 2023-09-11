@@ -10,8 +10,6 @@ public class StatusManager : MonoBehaviour
     private CharacterStatusManager characterStatusManager;
     private CharacterStatus enemyStatus;
     public CharacterStatus playerStatus;//bezug auf das GAmeobejct vom Spieler 
-    public SpawnManager spawnManager;
-
 
     public bool isAttacked = false; // schaut ob der Charakter schon im Kampf ist
     //Refernze für Health und EmotionSystem 
@@ -52,8 +50,6 @@ public class StatusManager : MonoBehaviour
 
     public void Start()
     {
-        spawnManager = FindObjectOfType<SpawnManager>();
-
         if (LevelLoader.instance.playerWins)
         {
             Debug.Log("its a win");

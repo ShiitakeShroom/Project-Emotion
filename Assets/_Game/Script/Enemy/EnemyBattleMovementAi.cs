@@ -181,9 +181,16 @@ public class EnemyBattleMovementAi : MonoBehaviour
     public Transform player;
     public LayerMask playerMask;
 
+    [Header("ConeRayCast")]
+    public float detectionRadius = 5f;
+    public float detetctionAngle = 45f;
+
+    public AbilityHolder projectilHolder;
+
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        projectilHolder = GetComponent<AbilityHolder>();
 
         //teleportiert den gegner zum ersten BewegungsFeld
         if (gridArea.Length > 0)
@@ -204,9 +211,14 @@ public class EnemyBattleMovementAi : MonoBehaviour
 
         if (CanSeePlayer())
         {
-            Vector3 nearstPointToPlayer = GetNearestPointToPlayer();
-            TeleportToNearestMovePoint(nearstPointToPlayer);
+            //Vector3 nearstPointToPlayer = GetNearestPointToPlayer();
+            //TeleportToNearestMovePoint(nearstPointToPlayer);
             //do Something
+            projectilHolder.TriggerAbility();
+        }
+        if (!CanSeePlayer() && AreaSeeAttack())
+        {
+            Debug.Log("UwU");
         }
     }
 
@@ -241,6 +253,30 @@ public class EnemyBattleMovementAi : MonoBehaviour
         return false;
     }
 
+    private bool AreaSeeAttack()
+    {
+        Vector3 rightDirection = -transform.right;
+        Vector3 rayCastOrigin = transform.position;//Startpunkt
+
+        //Halbebreite des Kegel radialmaﬂes
+        float halfAngle = detetctionAngle / 2f * Mathf.Deg2Rad;
+
+        //richtung des Kegels
+        Vector3 coneDirection = rightDirection;
+
+        RaycastHit[] hits = Physics.CapsuleCastAll(rayCastOrigin, rayCastOrigin + coneDirection * detectionRadius, 0.5f, rightDirection, detectionRadius);
+
+        foreach (RaycastHit hit in hits)
+        {
+            if (hit.collider.CompareTag("Player"))
+            {
+                Debug.Log("true castorigin");
+                return true;
+            }
+        }
+        return false;
+    }
+
     private Vector3 GetNearestPointToPlayer()
     {
         Vector3 nearestPoint = transform.position;
@@ -249,7 +285,7 @@ public class EnemyBattleMovementAi : MonoBehaviour
         foreach (Transform point in gridArea)
         {
             float distance = Vector3.Distance(player.position, point.position);
-            if(distance < nearestDistance)
+            if (distance < nearestDistance)
             {
                 nearestDistance = distance;
                 nearestPoint = point.position;
@@ -308,5 +344,28 @@ public class EnemyBattleMovementAi : MonoBehaviour
         // Zeichne den kurzen Raycast im Editor
         Gizmos.color = Color.red;
         Gizmos.DrawLine(rayStart, rayEnd);
+
+        Vector3 forwardDirection = -transform.right;
+        Vector3 raycastOrigin = transform.position; // Startpunkt des Kegels
+
+        // Halbe Breite des Kegels in Radialmaﬂ
+        float halfAngle = detetctionAngle / 2f * Mathf.Deg2Rad;
+
+        // Richtung des Kegels
+        Vector3 coneDirection = forwardDirection;
+
+        // Zeichne den Kegel als Linien-Gizmo
+        Gizmos.color = Color.yellow;
+
+        Quaternion leftRotation = Quaternion.Euler(0f, detetctionAngle / 2f, 0f);
+        Quaternion rightRotation = Quaternion.Euler(0f, -detetctionAngle / 2f, 0f);
+
+        Vector3 leftRay = leftRotation * coneDirection;
+        Vector3 rightRay = rightRotation * coneDirection;
+
+        Gizmos.DrawLine(raycastOrigin, raycastOrigin + leftRay * detectionRadius);
+        Gizmos.DrawLine(raycastOrigin, raycastOrigin + rightRay * detectionRadius);
+        Gizmos.DrawLine(raycastOrigin + leftRay * detectionRadius, raycastOrigin + rightRay * detectionRadius);
     }
+
 }

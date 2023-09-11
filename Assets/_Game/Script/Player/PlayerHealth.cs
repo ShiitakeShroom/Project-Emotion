@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using static StatusManager;
@@ -14,10 +15,14 @@ public class PlayerHealth : MonoBehaviour
     public CharacterStatus playerStatus;
     public StatusHUDSliderPlayer healthSliderPlayer;
 
+    [Header("Damage Over Timer")]
+    public bool isDamageOverTime = false;
 
+    [Header("Regeneration")]
     bool isRegenHealth;
     public float lifeRegvalue;
     public float regTime;
+
 
     public void Start()
     {
@@ -122,6 +127,29 @@ public class PlayerHealth : MonoBehaviour
             yield return new WaitForSeconds(regTime);
         }
         isRegenHealth = false;
+    }
+    //Damage over Time Funktion die von aus nach innen benutzt werden kann
+    //Zeitabstand zwischen den Schadensereignissen in sekunden, betrag des Schadens; Gesamtdauer der Schadensphase in Sekunden
+    public void DecreaseHealthOverTime(float damageIntervall, float damageAmount, float damageDuration)
+    {
+        StartCoroutine(DecreaseHealthOverTimeAttack( damageIntervall, damageAmount, damageDuration));
+    }
+
+    private IEnumerator DecreaseHealthOverTimeAttack(float damageIntervall, float damageAmount, float damageDuration)
+    {
+        Debug.Log("Lets go");
+        float timer = 0f;
+        while (timer < damageDuration)
+        {
+            Debug.Log(timer);
+            yield return new WaitForSeconds(damageIntervall);
+
+            playerStatus.health -= (playerStatus.maxHealth * (damageAmount / 100));
+            Debug.Log((playerStatus.maxHealth * (damageAmount / 100)));
+
+            timer += damageIntervall;
+        }
+
     }
 
     public void HealChange(object sender, EventArgs e)

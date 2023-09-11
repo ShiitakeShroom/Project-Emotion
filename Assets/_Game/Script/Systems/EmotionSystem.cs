@@ -9,8 +9,8 @@ using static EmotionSystem;
 using static UnityEngine.Rendering.DebugUI;
 using Unity.VisualScripting;
 
-public class EmotionSystem: MonoBehaviour
-{ 
+public class EmotionSystem : MonoBehaviour
+{
     [System.Serializable]
     public class FloatValue
     {
@@ -51,7 +51,7 @@ public class EmotionSystem: MonoBehaviour
     //public void AbsorbEmotion(EmotionType emotionType, float value)
     public void AbsorbEmotion(EmotionObject.EmotionData[] emotions)
     {
-        foreach(EmotionObject.EmotionData emotion in emotions)
+        foreach (EmotionObject.EmotionData emotion in emotions)
         {
             int index = (int)emotion.emotionType;
             emotionValues[index].value += emotion.valueToAbsorb;
@@ -73,7 +73,17 @@ public class EmotionSystem: MonoBehaviour
         }
         CheckMonsterTransformation();
     }
+    public void ConsumeEmotionAsResources(EmotionType[] requierdEmotiones, float resourceCost)
+    {
+        foreach (EmotionType emotionType in requierdEmotiones)
+        {
+            float newEmotionValue = GetEmotionValue(emotionType) - resourceCost;
 
+            newEmotionValue = Mathf.Max(newEmotionValue, 0f);
+
+            SetEmotionValue(emotionType, newEmotionValue);
+        }
+    }
 
     // Methode, um zu überprüfen, ob sich der Spieler in ein Monster verwandeln kann
     private void CheckMonsterTransformation()
@@ -87,7 +97,7 @@ public class EmotionSystem: MonoBehaviour
                 countAboveThreshold++;
         }
 
-        if(countAboveThreshold == 1)
+        if (countAboveThreshold == 1)
         {
             NearlyMorbingTime?.Invoke(this, EventArgs.Empty);
 
@@ -116,6 +126,21 @@ public class EmotionSystem: MonoBehaviour
     {
         OhNoItsMorbingTime.Invoke(this, EventArgs.Empty);
     }
+
+
+    private void SetEmotionValue(EmotionType emotionType, float newValue)
+    {
+        int index = (int)(emotionType);
+        emotionValues[index].value = Mathf.Clamp(newValue, minEmotionValue, maxEmotionValue);
+
+        //hier können sie auch ereignisse auslösen oder ander Aktionen auführen 
+        OnEmotionValueChanged?.Invoke(this, new EmotionChangedEventArgs
+        {
+            emotionType = emotionType,
+            newValue = emotionValues[index].value,
+        });
+    }
+
 }
 
 

@@ -27,9 +27,26 @@ public class AbilityHolder : MonoBehaviour
         CoolDown = 2
     }
 
+    public bool HasRequiredEmotions(EmotionSystem emotionSystem)
+    {
+        foreach (EmotionSystem.EmotionType emotionType in Ability.requiredEmotions)
+        {
+            //Überprüfe ob die benötigten Emotionen vorhanden sind
+            float emotionValue = emotionSystem.GetEmotionValue(emotionType);
+
+            //Ändere die Bedinung nach anfroderung
+            if (emotionValue < Ability.skillCost)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
     //Triggers the ability.
     public void TriggerAbility()
     {
+        EmotionSystem emotionSystem = FindObjectOfType<EmotionSystem>();
         //the ability can only be trigger if its current state is readytouse.
         if (CurrentAbilityState != AbilityStates.ReadyToUse)
             return;
@@ -37,6 +54,11 @@ public class AbilityHolder : MonoBehaviour
         //if the Character is not in allowed state then we avoid triggering the ability.
         if (!CharacterIsOnAllowedState())
             return;
+
+        if (!HasRequiredEmotions(emotionSystem))
+        {
+            return;
+        }
 
         //we start the process of triggering the ability
         StartCoroutine(HandleAbilityUsage_CO());

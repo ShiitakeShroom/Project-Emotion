@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6199240f83528d943b3b61ce130d1a4a, type: 3}
+  m_Name: ProjectilDmg Ability
+  m_EditorClassIdentifier: 
+  HasCooldown: 1
+  CooldDown: 2.5
+  CastingTime: 0
+  AllowedCharacterStates: 00000000
+  projectilSpawn: {fileID: 0}
+  projectil: {fileID: 3976499801008332363, guid: 228065e9a3f4a0248bcc682e2128efda,
+    type: 3}

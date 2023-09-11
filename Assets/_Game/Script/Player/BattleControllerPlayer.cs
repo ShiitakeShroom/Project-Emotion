@@ -9,9 +9,14 @@ public class BattleControllerPlayer : MonoBehaviour
 
     //basic infos über Speed, der bewegungspunkt und wieviel spielraum zw. dem Sprite und der Punkt sein sollte
     [Header("Basis Stats Battle")]
-    public float moveSpeedBattle =5f;
-    public Transform movePoint; 
+    public float moveSpeedBattle = 5f;
+
+    [Header("AreaMovePoints")]
+    public Transform movePoint;
     public float jumpTime = 0.05f;
+    private Vector3 targetPosition;
+
+    [Header("PlayerAbilitys")]
     public AbilityHolder _holderArea;
     public AbilityHolder holderProjectil;
     public Animator animator;
@@ -30,12 +35,14 @@ public class BattleControllerPlayer : MonoBehaviour
     {   
         animator = GetComponent<Animator>();
         SetMovePointParentToNull();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        Movement();
+
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             _holderArea.TriggerAbility();
@@ -44,6 +51,8 @@ public class BattleControllerPlayer : MonoBehaviour
         {
             holderProjectil.TriggerAbility();
         }
+
+        Movement();
     }
 
     public void Movement()
@@ -73,7 +82,6 @@ public class BattleControllerPlayer : MonoBehaviour
                 }
             }
         }
-
     }
 
     public void SetMovePointParentToNull()

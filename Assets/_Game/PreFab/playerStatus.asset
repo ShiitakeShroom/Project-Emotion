@@ -19,7 +19,7 @@ MonoBehaviour:
     type: 3}
   level: 1
   maxHealth: 400
-  health: 278.80023
+  health: 238.60048
   stamina: 100
   maxStamina: 100
   isHealedMax: 1
