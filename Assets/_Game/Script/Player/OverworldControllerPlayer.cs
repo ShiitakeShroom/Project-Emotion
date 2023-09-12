@@ -38,12 +38,6 @@ public class OverworldControllerPlayer : MonoBehaviour
     private void Awake()
     {
         Debug.Log($"OW");
-
-
-        foreach (EmotionBar emotionBar in emotionBars)
-        {
-            emotionBar.UpdateEmotionBarFromSystem();
-        }
     }
 
     // Update is called once per frame

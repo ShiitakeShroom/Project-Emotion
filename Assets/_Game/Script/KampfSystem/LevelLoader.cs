@@ -17,7 +17,6 @@ public class LevelLoader : MonoBehaviour
     public static LevelLoader instance;
     public CharacterStatus charaStatus;
 
-
     public event EventHandler overworldChange;
     public event EventHandler battleChange;
     public Animator transition;
@@ -72,7 +71,6 @@ public class LevelLoader : MonoBehaviour
         transition.SetTrigger("Start");
 
         yield return new WaitForSeconds(transitionTime);
-
 
         SceneManager.LoadScene(levelName);
         overworldChange?.Invoke(this, EventArgs.Empty);

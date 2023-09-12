@@ -45,13 +45,4 @@ public class EmotionObject : MonoBehaviour
             emotionAbsorbed = true;
         }
     }
-
-    public void CharacterUpdateStatus()
-    {
-        foreach(EmotionSystem.EmotionType emotionType in System.Enum.GetValues(typeof(EmotionSystem.EmotionType)))
-        {
-            int index = (int)emotionType;
-            statusManager.emotionValues[index] = emotionSystem.GetEmotionValue(emotionType);
-        }
-    }
 }

@@ -171,4 +171,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1e6332503df61d4f887a7a487983761, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentTransform: {fileID: 6498633203472024537}
+  abilityHolder1: {fileID: 0}

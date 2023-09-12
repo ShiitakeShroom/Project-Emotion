@@ -16,9 +16,6 @@ public class StatusManager : MonoBehaviour
     public bool hasEntererdTrigger = false;
     public EmotionSystem emotionSystem;
     //Emotionswert hinzufügen 
-    public float[] emotionValues = new float[System.Enum.GetValues(typeof(EmotionSystem.EmotionType)).Length];
-    public EmotionBar emotionSlider;
-    public string enemyName;
 
 
     void OnTriggerEnter(Collider other)
@@ -34,8 +31,6 @@ public class StatusManager : MonoBehaviour
                     PlayerPosition.SavePosition(other.transform.position);
                     isAttacked = true;
                     Debug.Log("Gather Dtata ...");
-                    //Debug.Log(PlayerPosition.GetPosition());
-                    //Debug.Log("loadLevel");
                     LevelLoader.instance.LoadLevel("BattleArena");
                 }
             }
