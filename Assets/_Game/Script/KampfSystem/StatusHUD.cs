@@ -15,13 +15,13 @@ public class StatusHUD : MonoBehaviour
     public void SetStatusHUD(CharacterStatus status)
     {
         float currentHealth = status.health * (100 / status.maxHealth);
-        float currentStamina = status.stamina * (100 / status.maxStamina);
+        float currentStamina = status.mind * (100 / status.maxMind);
 
         statusHPBar.fillAmount = currentHealth / 100;
         statusHPValue.SetText(status.health + "/" + status.maxHealth);
 
         statusStaminaBar.fillAmount = currentStamina / 100;
-        statusStatimaValue.SetText(status.stamina + ("/") + status.maxStamina);
+        statusStatimaValue.SetText(status.mind + ("/") + status.maxMind);
     }
 
     public void SetHP(CharacterStatus status, float hp)

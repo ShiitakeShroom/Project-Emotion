@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6498633203472024537}
   - component: {fileID: 7242869644747992439}
+  - component: {fileID: 4275523648746870943}
   m_Layer: 0
   m_Name: EnemyPreFab
   m_TagString: Enemy
@@ -45,6 +46,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36587c29cbf2c0547928164958e3154e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTouched: 0
+--- !u!135 &4275523648746870943
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 171880455257677810}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.04
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3843078567711742479
 GameObject:
   m_ObjectHideFlags: 0
@@ -54,10 +69,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3181818443154593235}
-  - component: {fileID: 221244073525823071}
   - component: {fileID: 7446244629361482685}
   - component: {fileID: 5252309946806487916}
-  - component: {fileID: 4730090196943507907}
   m_Layer: 0
   m_Name: EnemyOverWorld
   m_TagString: Enemy
@@ -80,19 +93,6 @@ Transform:
   m_Father: {fileID: 6498633203472024537}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &221244073525823071
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3843078567711742479}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1.04
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &7446244629361482685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,16 +159,3 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
---- !u!114 &4730090196943507907
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3843078567711742479}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1e6332503df61d4f887a7a487983761, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityHolder1: {fileID: 0}

@@ -7,6 +7,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Abilities/SkillsPlayer", fileName = "SelfHarm")]
 public class Skill_SelfHarm : BaseAbility
 {
+    
     public PlayerHealth playerHealth;
     public float damage = 25f;
     public float damageAmount = 5f;//Seconds of Damage
@@ -52,14 +53,15 @@ public class Skill_SelfHarm : BaseAbility
 
     private void ApplySkillEffects(EmotionSystem emotionSystem)
     {
+        BuffManager buffManager = FindObjectOfType<BuffManager>();
         //Führen sie hier die Akitio für den Skill aus
         //Zum Beispiel Schaden anrichten oder effekte auslösen
         playerHealth = FindObjectOfType<PlayerHealth>();
-
         playerHealth.DecreaseHealth(damage);
-
         playerHealth.DecreaseHealthOverTime(dmagaeIntervall, damageAmount, damageDuration);
 
+        BuffData newBuff = new BuffData("attackBoost", 6.75f, 5f, 1f, 1f, 1f, 1f, 1f, 0f);
+        buffManager.Addbuff(newBuff);
         emotionSystem.ConsumeEmotionAsResources(requiredEmotions, skillCost);
     }
 }

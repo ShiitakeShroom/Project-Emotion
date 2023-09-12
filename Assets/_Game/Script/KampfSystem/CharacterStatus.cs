@@ -8,6 +8,7 @@ using static EmotionObject;
 [CreateAssetMenu(fileName = "Health/EmotionStatusData", menuName = "StatusObject/Health", order = 0)]
 public class CharacterStatus : ScriptableObject
 {
+
     public string charName = "name"; //GIbt dem File einen Namen 
     public GameObject characterGameObject;
     public EmotionSystem emotionSystem;
@@ -17,7 +18,17 @@ public class CharacterStatus : ScriptableObject
     public int level = 1;
     public float maxHealth;
     public float health;
-    public float stamina;
-    public float maxStamina;
+    public float mind;
+    public float maxMind;
+
     public bool isHealedMax = false;
+
+    [Header("Stats")]
+    public float attack;
+    public float defence;
+    public float speed;
+    public float attackSpeed;
+    public float healthregen;
+    public float mindregen;
+    public float skillAttackDamage;
 }

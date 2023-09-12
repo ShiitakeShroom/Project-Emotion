@@ -15,7 +15,7 @@ public class StatusHUDSliderPlayer : MonoBehaviour
     public void SetStatusHUD(CharacterStatus status)
     {
         //float currentHealth = status.health * (100 / status.maxHealth);
-        float currentStamina = status.stamina * (100 / status.maxStamina);
+        float currentStamina = status.mind * (100 / status.maxMind);
 
         statusHPBar.maxValue = status.maxHealth;
         statusHPBar.value = status.health;
