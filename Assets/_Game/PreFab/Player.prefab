@@ -196,6 +196,7 @@ GameObject:
   - component: {fileID: 6717550812317977942}
   - component: {fileID: 1766273448}
   - component: {fileID: 1766273449}
+  - component: {fileID: 5150515158744168557}
   m_Layer: 0
   m_Name: BattlePresence_Yu
   m_TagString: Player
@@ -390,6 +391,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentCharacterState: 0
+--- !u!114 &5150515158744168557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2345937692414540560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23447ccbf20e3694a937bec225205101, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerStatus: {fileID: 11400000, guid: fea497991cacfaf4481867281f99257f, type: 2}
 --- !u!1 &4842457144875696093
 GameObject:
   m_ObjectHideFlags: 0
@@ -647,6 +661,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23447ccbf20e3694a937bec225205101, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerStatus: {fileID: 0}
 --- !u!114 &1957041724
 MonoBehaviour:
   m_ObjectHideFlags: 0

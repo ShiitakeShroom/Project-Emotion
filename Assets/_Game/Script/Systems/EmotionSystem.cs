@@ -11,6 +11,8 @@ using Unity.VisualScripting;
 
 public class EmotionSystem : MonoBehaviour
 {
+    public static EmotionSystem instance;
+
     [System.Serializable]
     public class FloatValue
     {
@@ -45,10 +47,20 @@ public class EmotionSystem : MonoBehaviour
     // Schwelle, um sich in ein Monster zu verwandeln
     public float monsterTransformationThreshold = 75f;
 
-
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     // Methode zum Absorbieren einer Emotion von einem NPC oder Gegner
 
-    //public void AbsorbEmotion(EmotionType emotionType, float value)
     public void AbsorbEmotion(EmotionObject.EmotionData[] emotions)
     {
         foreach (EmotionObject.EmotionData emotion in emotions)
@@ -141,6 +153,19 @@ public class EmotionSystem : MonoBehaviour
         });
     }
 
+    //erhöht die verwandlungsthreshold zur monster verwandelung für eine bestimmte Zeit
+    public void SetMonsterTransformationThreshhold(float monsterduration, float duration)
+    {
+        monsterTransformationThreshold += monsterduration;
+
+        StartCoroutine(ResetMonsterThreshHold(duration));
+    }
+
+    IEnumerator ResetMonsterThreshHold(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        monsterTransformationThreshold = 75f;
+    }
 }
 
 

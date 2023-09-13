@@ -19,7 +19,14 @@ MonoBehaviour:
     type: 3}
   level: 1
   maxHealth: 400
-  health: 238.60048
-  stamina: 100
-  maxStamina: 100
+  health: 375.2
+  mind: 0
+  maxMind: 0
   isHealedMax: 1
+  attack: 3125
+  defence: 1
+  speed: 1
+  attackSpeed: 1
+  healthregen: 100000000
+  mindregen: 1
+  skillAttackDamage: 12

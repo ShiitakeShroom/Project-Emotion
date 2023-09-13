@@ -50,6 +50,9 @@ public class AchtsamkeitsMenu : MonoBehaviour
     void PauseGame()
     {
         mindfulnessMenuUI.alpha = 1f;
+        mindfulnessMenuUI.blocksRaycasts = true;
+
+
         playerLooksAfterEmotion = true;
         Time.timeScale = slowMotion; //slow time
 
@@ -63,6 +66,7 @@ public class AchtsamkeitsMenu : MonoBehaviour
     {
         playerLooksAfterEmotion = false;
         mindfulnessMenuUI.alpha = 0f;
+        mindfulnessMenuUI.blocksRaycasts = false;
         Time.timeScale = 1.0f; //ResumeTime
         elapsedTime = 0.0f;
 

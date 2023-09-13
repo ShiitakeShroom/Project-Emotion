@@ -20,15 +20,18 @@ public class CooldownVisual : MonoBehaviour
         cooldownTime = ability.CooldDown;
     }
 
-
+    
     public void Update()
     {
         EmotionSystem emotionSystem = FindObjectOfType<EmotionSystem>();
+
         ApplyCooldown();
+
 
         if (!HasRequiredEmotions(emotionSystem) && !isCoolDown)
         {
             AbilityNotUseble();
+
         }
         else if(HasRequiredEmotions(emotionSystem) && !isCoolDown)
         {
@@ -79,7 +82,6 @@ public class CooldownVisual : MonoBehaviour
 
     void StartCooldown()
     {
-        Debug.Log(ability.CooldDown);
         isCoolDown = true;
         cooldownTimer = cooldownTime;
     }

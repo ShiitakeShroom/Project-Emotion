@@ -9,18 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cd78f47d2829184a9a04b1fc9cba325, type: 3}
-  m_Name: SelfHarm Ability
+  m_Script: {fileID: 11500000, guid: 7bc0af5667963dc45b6adff451b852cd, type: 3}
+  m_Name: Breathing Exercise
   m_EditorClassIdentifier: 
   HasCooldown: 1
-  CooldDown: 6.75
+  CooldDown: 120
   CastingTime: 0
-  skillCost: 25
-  requiredEmotions: 0000000004000000
+  skillCost: 0
+  requiredEmotions: 000000000100000002000000030000000400000005000000
   AllowedCharacterStates: 00000000
   AllowedScenes: 00000000
-  playerHealth: {fileID: 0}
-  damage: 25
-  damageAmount: 5
-  dmagaeIntervall: 3
-  damageDuration: 10
+  duration: 20.01
+  monsterDuration: 12

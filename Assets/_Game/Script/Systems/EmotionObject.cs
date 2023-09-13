@@ -5,11 +5,7 @@ using UnityEngine;
 
 public class EmotionObject : MonoBehaviour
 {
-    public CharacterStatus playerStatus;
-
     public EmotionSystem emotionSystem;
-
-    public StatusManager statusManager;
 
     public int numberOfEmotions; //Anzahl der Emotione
 

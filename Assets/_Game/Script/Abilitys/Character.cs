@@ -15,6 +15,7 @@ public class Character : MonoBehaviour
         UsingSpell
     }
 
+
     [SerializeField] private CharacterStates _currentCharacterState = CharacterStates.Idle;
 
     public CharacterStates CurrentCharacterStates
@@ -25,4 +26,19 @@ public class Character : MonoBehaviour
 
     public void SetCharacterState(CharacterStates newState) => CurrentCharacterStates = newState;
 
+    public enum Scenes
+    {
+        SampleScene,
+        BattleArena
+    }
+
+    [SerializeField] private Scenes _scenes = Scenes.SampleScene;
+
+    public Scenes CurrentScene
+    {
+        get => _scenes; 
+        private set => _scenes = value;
+    }
+
+    public void SetSceneState(Scenes newSceneState) => CurrentScene = newSceneState;
 }
