@@ -8,21 +8,19 @@ using UnityEngine.SceneManagement;
 
 public class Skill_JustSayHallo : BaseAbility
 {
+    public float newMaxEmotionValue = 74f;
+    public float duration = 10f;
+    public Transform SpawnPosition;
+    public GameObject friend;
 
     public override void Activate(AbilityHolder holder)
     {
 
-        string currentSceneName = SceneManager.GetActiveScene().name;
-        Debug.Log("Current Scene: " + currentSceneName);
+        EmotionSystem emotionSystem = FindObjectOfType<EmotionSystem>();
 
-        if (currentSceneName == "BattleArena")
+        if (HasRequiredEmotions(emotionSystem))
         {
-            EmotionSystem emotionSystem = FindObjectOfType<EmotionSystem>();
-
-            if (HasRequiredEmotions(emotionSystem))
-            {
-                ApplySkillEffects(emotionSystem);
-            }
+            ApplySkillEffects(emotionSystem);
         }
         else
         {
@@ -50,22 +48,26 @@ public class Skill_JustSayHallo : BaseAbility
     {
         BuffManager buffManager = FindObjectOfType<BuffManager>();
         PlayerHealth playerHealth = FindObjectOfType<PlayerHealth>();
-
-        playerHealth.DecreaseHealth(100f);
+        
         BuffData companionBuff = new BuffData(
             "CompanionBuff", //name
-            5f, //duration
+            duration, //duration
             1f, //attack
             1f, //attackSpeed
             1f, //defenceModifier
             1f, //speed
-            10f, //healthregen
+            20f, //healthregen
             1f, //mindregen
             0f
         ); //skillattack
-
+        SpawnCompanion();
         buffManager.Addbuff(companionBuff);
-
+        emotionSystem.SetMaxEmoitionValue(newMaxEmotionValue, duration);
         emotionSystem.ConsumeEmotionAsResources(requiredEmotions, skillCost);
+    }
+    
+    private void SpawnCompanion()
+    {
+        Instantiate(friend, SpawnPosition.position, Quaternion.identity);
     }
 }

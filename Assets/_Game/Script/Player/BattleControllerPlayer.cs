@@ -10,6 +10,7 @@ public class BattleControllerPlayer : MonoBehaviour
     //basic infos über Speed, der bewegungspunkt und wieviel spielraum zw. dem Sprite und der Punkt sein sollte
     [Header("Basis Stats Battle")]
     public float moveSpeedBattle = 5f;
+    public Character owner;
 
     [Header("AreaMovePoints")]
     public Transform movePoint;
@@ -33,9 +34,10 @@ public class BattleControllerPlayer : MonoBehaviour
 
     public void Start()
     {   
+        owner = GetComponent<Character>();
         animator = GetComponent<Animator>();
         SetMovePointParentToNull();
-
+        owner.SetCharacterState(Character.CharacterStates.Attacking);
     }
 
     // Update is called once per frame

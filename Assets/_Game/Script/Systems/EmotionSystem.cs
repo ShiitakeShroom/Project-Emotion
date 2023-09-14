@@ -21,7 +21,7 @@ public class EmotionSystem : MonoBehaviour
     }
     //Define the Event, whenever a emotion will be changed
     public event EventHandler<EmotionChangedEventArgs> OnEmotionValueChanged;
-
+    public event EventHandler maxEmotionValueChange;
     // Add a class to hold the event data for the emotion value change event
     public class EmotionChangedEventArgs : EventArgs
     {
@@ -97,6 +97,37 @@ public class EmotionSystem : MonoBehaviour
         }
     }
 
+    public void DistributeEmotions()
+    {
+        // Finde die Emotion mit dem höchsten Wert
+        EmotionType highestEmotion = EmotionType.Wut;
+        float highestValue = GetEmotionValue(EmotionType.Wut);
+
+        foreach (EmotionType emotionType in Enum.GetValues(typeof(EmotionType)))
+        {
+            float value = GetEmotionValue(emotionType);
+            if (value > highestValue)
+            {
+                highestValue = value;
+                highestEmotion = emotionType;
+            }
+        }
+
+        // Setze die höchste Emotion auf null und verteile ihren Wert auf die anderen Emotionen
+        float redistributedValue = highestValue / 6f;
+        SetEmotionValue(highestEmotion, 0f);
+
+        foreach (EmotionType emotionType in Enum.GetValues(typeof(EmotionType)))
+        {
+            if (emotionType != highestEmotion)
+            {
+                float currentValue = GetEmotionValue(emotionType);
+                SetEmotionValue(emotionType, currentValue + redistributedValue);
+            }
+        }
+    }
+
+
     // Methode, um zu überprüfen, ob sich der Spieler in ein Monster verwandeln kann
     private void CheckMonsterTransformation()
     {
@@ -158,14 +189,23 @@ public class EmotionSystem : MonoBehaviour
     {
         monsterTransformationThreshold += monsterduration;
 
-        StartCoroutine(ResetMonsterThreshHold(duration));
+        StartCoroutine(ResetThreshHold(duration));
+    }
+    public void SetMaxEmoitionValue(float maxEmoitionValueNew, float duration)
+    {
+        maxEmotionValue = maxEmoitionValueNew;
+        maxEmotionValueChange?.Invoke(this, EventArgs.Empty);
+        StartCoroutine(ResetThreshHold(duration));
     }
 
-    IEnumerator ResetMonsterThreshHold(float duration)
+    IEnumerator ResetThreshHold(float duration)
     {
         yield return new WaitForSeconds(duration);
         monsterTransformationThreshold = 75f;
+        maxEmotionValue = 100f;
+        maxEmotionValueChange?.Invoke(this, EventArgs.Empty);
     }
+
 }
 
 

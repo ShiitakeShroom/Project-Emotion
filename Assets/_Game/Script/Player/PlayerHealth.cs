@@ -141,11 +141,9 @@ public class PlayerHealth : MonoBehaviour
         float timer = 0f;
         while (timer < damageDuration)
         {
-            Debug.Log(timer);
             yield return new WaitForSeconds(damageIntervall);
 
             playerStatus.health -= (playerStatus.maxHealth * (damageAmount / 100));
-            Debug.Log((playerStatus.maxHealth * (damageAmount / 100)));
 
             timer += damageIntervall;
         }

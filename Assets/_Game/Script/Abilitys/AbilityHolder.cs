@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class AbilityHolder : MonoBehaviour
 {
@@ -19,6 +20,22 @@ public class AbilityHolder : MonoBehaviour
 
     //Unity Event to Add custom behaviors from editor code once ability is triggerd.
     public UnityEvent OnTriggerAbility;
+
+    public void Start()
+    {
+        if(owner == null) 
+        {
+            owner = FindObjectOfType<Character>();
+        }
+    }
+
+    public void Update()
+    {
+        if(owner == null)
+        {
+            owner = FindObjectOfType<Character>();
+        }
+    }
 
     public enum AbilityStates
     {
@@ -66,7 +83,9 @@ public class AbilityHolder : MonoBehaviour
 
     public bool CharacterIsOnAllowedState()
     {
+
         return Ability.AllowedCharacterStates.Contains(owner.CurrentCharacterStates);
+        
     }
 
     private IEnumerator HandleAbilityUsage_CO()
@@ -83,7 +102,6 @@ public class AbilityHolder : MonoBehaviour
 
         //sets the ability on cooldown state
         CurrentAbilityState = AbilityStates.CoolDown;
-        Debug.Log("casttime" + AbilityStates .CoolDown);
 
         //invoking unity methoid
         OnTriggerAbility?.Invoke();

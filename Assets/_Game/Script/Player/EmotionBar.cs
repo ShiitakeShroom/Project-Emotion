@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -17,18 +18,22 @@ public class EmotionBar : MonoBehaviour
 
     public void Awake()
     {
-        emotionSystem = FindObjectOfType<EmotionSystem>();
+        emotionSystem = GetComponent<EmotionSystem>();
+        if (emotionSystem == null ) { 
+            emotionSystem = FindObjectOfType<EmotionSystem>();
+        }
     }
 
     public void Start()
     {   //MaxValue für Emotion
         emotionSystem.OnEmotionValueChanged += OnEmotionValueChanged;
+        emotionSystem.maxEmotionValueChange += MaxEmotionValueChange;
         SetMaxEmotion(emotionSystem.maxEmotionValue);
 
         // Initialize the marker at 75% position.
         InitializeMarker();
     }
-
+    //Event das automatische die Emotionbars aktualisiert
     private void OnEmotionValueChanged(object sender, EmotionSystem.EmotionChangedEventArgs e)
     {
         if (e.emotionType == emotionTypeToDisplay)
@@ -64,6 +69,13 @@ public class EmotionBar : MonoBehaviour
     {
         emotionSlider.maxValue = maxEmotionValue;
     }
+
+    //soll die maxEmotionvalues des Sliders automatisch festlegen
+    private void MaxEmotionValueChange(object sender, EventArgs e)
+    {
+        SetMaxEmotion(emotionSystem.maxEmotionValue);
+    }
+
 
     // Function to initialize the marker at 75% position.
     private void InitializeMarker()

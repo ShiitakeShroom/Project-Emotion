@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Character : MonoBehaviour
 {
@@ -24,21 +25,37 @@ public class Character : MonoBehaviour
         private set => _currentCharacterState = value;
     }
 
-    public void SetCharacterState(CharacterStates newState) => CurrentCharacterStates = newState;
-
-    public enum Scenes
+    private void Awake()
     {
-        SampleScene,
-        BattleArena
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    [SerializeField] private Scenes _scenes = Scenes.SampleScene;
-
-    public Scenes CurrentScene
+    private void OnDestroy()
     {
-        get => _scenes; 
-        private set => _scenes = value;
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    public void SetSceneState(Scenes newSceneState) => CurrentScene = newSceneState;
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // Hier kannst du überprüfen, in welcher Szene der Spieler sich befindet und den Zustand entsprechend anpassen.
+        if (scene.name == "OverworldScene")
+        {
+            SetCharacterState(CharacterStates.UsingSpell);
+        }
+        else if (scene.name == "BattleScene")
+        {
+            SetCharacterState(CharacterStates.Attacking);
+        }
+        else
+        {
+            SetCharacterState(CharacterStates.Idle); // Standardzustand für andere Szenen
+        }
+    }
+
+    public void SetCharacterState(CharacterStates newState)
+    {
+        _currentCharacterState = newState;
+        // Hier kannst du zusätzliche Aktionen ausführen, die mit dem neuen Zustand verbunden sind.
+    }
 }
+

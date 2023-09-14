@@ -17,7 +17,6 @@ MonoBehaviour:
   CastingTime: 0
   skillCost: 0
   requiredEmotions: 000000000100000002000000030000000400000005000000
-  AllowedCharacterStates: 00000000
-  AllowedScenes: 00000000
+  AllowedCharacterStates: 050000000300000000000000
   duration: 20.01
   monsterDuration: 12

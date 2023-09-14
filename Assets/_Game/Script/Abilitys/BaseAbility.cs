@@ -16,7 +16,6 @@ public abstract class BaseAbility : ScriptableObject
 
     [Header("Allowed Stats")] 
     public List<Character.CharacterStates> AllowedCharacterStates = new List<Character.CharacterStates>() { Character.CharacterStates.Idle };
-    public List<Character.Scenes> AllowedScenes = new List<Character.Scenes>() { Character.Scenes.SampleScene };
 
     public virtual void OnAbilityUpdate(AbilityHolder holder) { }
     public abstract void Activate(AbilityHolder holder);

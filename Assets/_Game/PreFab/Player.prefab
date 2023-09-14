@@ -360,7 +360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f961f78e20bd4f4abf44860ade67919, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  owner: {fileID: 1766273449}
+  owner: {fileID: 0}
   Ability: {fileID: 11400000, guid: 14757bb99762d0541bc5e5ed14cd97ee, type: 2}
   CurrentAbilityState: 0
   OnTriggerAbility:
@@ -674,7 +674,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f961f78e20bd4f4abf44860ade67919, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  owner: {fileID: 1957041723}
+  owner: {fileID: 0}
   Ability: {fileID: 11400000, guid: 14757bb99762d0541bc5e5ed14cd97ee, type: 2}
   CurrentAbilityState: 0
   OnTriggerAbility:

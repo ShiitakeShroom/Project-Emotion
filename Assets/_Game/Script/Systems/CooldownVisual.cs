@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class CooldownVisual : MonoBehaviour
@@ -9,7 +11,9 @@ public class CooldownVisual : MonoBehaviour
 
     public Image abilityImage;
     public BaseAbility ability; //cooldown des Skills wird benutzt 
-    private Skill_SelfHarm selfHarm;
+    public Character owner;
+
+
     public bool isCoolDown = false;
     public float cooldownTimer = 0.0f;
     public float cooldownTime;
@@ -18,22 +22,35 @@ public class CooldownVisual : MonoBehaviour
     {
         abilityImage.fillAmount = 0.0f;
         cooldownTime = ability.CooldDown;
+        if (owner == null)
+        {
+            owner = FindObjectOfType<Character>();
+        }
     }
 
-    
+
     public void Update()
     {
+        //Nichts an der UpdateFunktion ändern; sie Funktioniert so wie sie ist
+        if (owner == null)
+        {
+            owner = FindObjectOfType<Character>();
+        }
         EmotionSystem emotionSystem = FindObjectOfType<EmotionSystem>();
-
+        
         ApplyCooldown();
-
 
         if (!HasRequiredEmotions(emotionSystem) && !isCoolDown)
         {
             AbilityNotUseble();
-
         }
-        else if(HasRequiredEmotions(emotionSystem) && !isCoolDown)
+
+        if (!CharacterIsOnAllowedState())
+        {
+            AreaNotUseable();
+        }
+
+        else if (HasRequiredEmotions(emotionSystem) && !isCoolDown && CharacterIsOnAllowedState())
         {
             AbilityUseable();
         }
@@ -73,11 +90,21 @@ public class CooldownVisual : MonoBehaviour
     public void OnIconclick()
     {
         EmotionSystem emotionSystem = FindObjectOfType<EmotionSystem>();
+
+        if (!CharacterIsOnAllowedState())
+            return;
+
         if (!isCoolDown && HasRequiredEmotions(emotionSystem))
         {
             Debug.Log("Icon wurde gecklickt");
             StartCooldown();
         }
+    }
+
+    public bool CharacterIsOnAllowedState()
+    {
+        return ability.AllowedCharacterStates.Contains(owner.CurrentCharacterStates);
+
     }
 
     void StartCooldown()
@@ -95,5 +122,11 @@ public class CooldownVisual : MonoBehaviour
     void AbilityUseable()
     {
         abilityImage.fillAmount = 0.0f;
+    }
+
+    void AreaNotUseable()
+    {
+        abilityImage.fillAmount = 1.0f;
+        abilityImage.color = Color.gray;
     }
 }

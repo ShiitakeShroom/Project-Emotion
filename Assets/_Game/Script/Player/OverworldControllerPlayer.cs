@@ -13,6 +13,7 @@ public class OverworldControllerPlayer : MonoBehaviour
     private Vector3 lastMoveDir;
     public Rigidbody rb;
     private GameObject Player;
+    public Character owner;
     
     public StatusHUDSliderPlayer statusHUDPlayer;
 
@@ -27,17 +28,18 @@ public class OverworldControllerPlayer : MonoBehaviour
     void Start()
     {
         statusHUDPlayer = FindObjectOfType<StatusHUDSliderPlayer>();
-        
+        owner = GetComponent<Character>();
         animator = GetComponent<Animator>();
         GameObject Player = this.GameObject();
         rb = GetComponent<Rigidbody>();
         statusHUDPlayer.SetStatusHUD(playerStatus);
-
+        owner.SetCharacterState(Character.CharacterStates.UsingSpell);
     }
 
     private void Awake()
     {
         Debug.Log($"OW");
+
     }
 
     // Update is called once per frame
