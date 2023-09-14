@@ -15,6 +15,7 @@ MonoBehaviour:
   HasCooldown: 1
   CooldDown: 5
   CastingTime: 0
-  skillCost: 10
-  requiredEmotions: 000000000100000002000000030000000400000005000000
-  AllowedCharacterStates: 0500000003000000
+  skillCost: 0
+  requiredEmotions: 
+  AllowedCharacterStates: 050000000300000000000000
+  numberOfEmotions: 1

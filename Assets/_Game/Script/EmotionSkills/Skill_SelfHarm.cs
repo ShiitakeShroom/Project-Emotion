@@ -2,7 +2,9 @@ using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using static EmotionSystem;
 
 [CreateAssetMenu(menuName = "Abilities/SkillsPlayer", fileName = "SelfHarm")]
 public class Skill_SelfHarm : BaseAbility
@@ -13,14 +15,14 @@ public class Skill_SelfHarm : BaseAbility
     public float damageAmount = 5f;//Seconds of Damage
     public float dmagaeIntervall = 3f;
     public float damageDuration = 10f;//Gesamtanzahl von Schaden
-    
+    public int resourceEmotions = 2;
 
     public override void Activate(AbilityHolder holder)
     {
         EmotionSystem emotionSystem = FindObjectOfType<EmotionSystem>();
 
         //überprüfe ob die benötigte Emotionen vorhanden sind
-        if (HasRequiredEmotions(emotionSystem))
+        if (HasAnyEmotionWithValue(emotionSystem))
         {
             //Führen sie die akitone fpr den Skill aus
             ApplySkillEffects(emotionSystem);
@@ -35,7 +37,7 @@ public class Skill_SelfHarm : BaseAbility
     }
 
 
-    public bool HasRequiredEmotions(EmotionSystem emotionSystem)
+    /*public bool HasRequiredEmotions(EmotionSystem emotionSystem)
     {
         foreach (EmotionSystem.EmotionType emotionType in requiredEmotions)
         {
@@ -49,6 +51,23 @@ public class Skill_SelfHarm : BaseAbility
             }
         }
         return true;
+    }*/
+
+    public bool HasAnyEmotionWithValue(EmotionSystem emotionSystem)
+    {
+        // Erstelle eine Kopie der Emotionen, um die Sortierung vorzunehmen.
+        FloatValue[] sortedEmotions = emotionSystem.emotionValues.ToArray();
+
+        // Sortiere die Emotionen nach ihrem Wert in absteigender Reihenfolge.
+        sortedEmotions = sortedEmotions.OrderByDescending(e => e.value).ToArray();
+
+        // Überprüfe den höchsten Wert der Emotionen und vergleiche ihn mit skillCost.
+        if (sortedEmotions.Length > 0 && sortedEmotions[0].value >= skillCost)
+        {
+            return true;
+        }
+
+        return false;
     }
 
     private void ApplySkillEffects(EmotionSystem emotionSystem)
@@ -62,6 +81,6 @@ public class Skill_SelfHarm : BaseAbility
 
         BuffData newBuff = new BuffData("attackBoost", 6.75f, 5f, 1f, 1f, 1f, 1f, 1f, 0f);
         buffManager.Addbuff(newBuff);
-        emotionSystem.ConsumeEmotionAsResources(requiredEmotions, skillCost);
+        emotionSystem.ConsumeEmotionAsResources(resourceEmotions, skillCost);
     }
 }

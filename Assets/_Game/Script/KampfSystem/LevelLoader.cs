@@ -59,7 +59,7 @@ public class LevelLoader : MonoBehaviour
 
 
     #region Win or Lose Loader
-    public void ReturnToOverWorld(string levelName, bool victory)
+    public void ReturnToOverWorld(string levelName)
     {
         playerWins = true;
 

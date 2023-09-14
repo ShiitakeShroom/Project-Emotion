@@ -15,8 +15,9 @@ MonoBehaviour:
   HasCooldown: 1
   CooldDown: 120
   CastingTime: 0
-  skillCost: 0
-  requiredEmotions: 000000000100000002000000030000000400000005000000
+  skillCost: 10
+  requiredEmotions: 
   AllowedCharacterStates: 050000000300000000000000
   duration: 20.01
   monsterDuration: 12
+  resourceEmotions: 1

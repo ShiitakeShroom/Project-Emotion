@@ -16,10 +16,11 @@ MonoBehaviour:
   CooldDown: 30
   CastingTime: 0
   skillCost: 10
-  requiredEmotions: 0200000004000000
-  AllowedCharacterStates: 03000000
+  requiredEmotions: 
+  AllowedCharacterStates: 0300000000000000
   newMaxEmotionValue: 74
   duration: 10
   SpawnPosition: {fileID: 3630793213174165, guid: 02e214961904a9347824c3ab8acecf70,
     type: 3}
   friend: {fileID: 3346670068921900984, guid: 6634dd2b4276af84c9513f528a19a6fc, type: 3}
+  resourceEmotions: 1

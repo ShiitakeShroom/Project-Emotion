@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cb697bd46291e240b6d95bed1c9eff4, type: 3}
+  m_Name: BeiSeiteschieben
+  m_EditorClassIdentifier: 
+  HasCooldown: 1
+  CooldDown: 1
+  CastingTime: 0
+  skillCost: 10
+  requiredEmotions: 
+  AllowedCharacterStates: 0300000005000000
+  restartPosition: {fileID: 6913491812847316467, guid: 4b52845b929af124e88df01f9a378121,
+    type: 3}
+  player: {fileID: 4842457144875696093, guid: 1799ebddf7f5ad346bc903551b66c2d6, type: 3}
+  consumedEmotions: 0

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using static EmotionSystem;
 
 [CreateAssetMenu(menuName = "Abilities/Breathing", fileName = "Breathing Exercise")]
 
@@ -8,11 +10,13 @@ public class Skill_Breathing : BaseAbility
 {
     public float duration;
     public float monsterDuration;
+    public int resourceEmotions = 4;
+
     public override void Activate(AbilityHolder holder)
     {
         EmotionSystem emotionSystem = FindObjectOfType<EmotionSystem>();   
         //überprüfe ob die benötigte Emotionen vorhanden sind
-        if (HasRequiredEmotions(emotionSystem))
+        if (HasAnyEmotionWithValue(emotionSystem))
         {
             //Führen sie die akitone fpr den Skill aus
             ApplySkillEffects(emotionSystem);
@@ -26,20 +30,36 @@ public class Skill_Breathing : BaseAbility
         }
     }
 
-    public bool HasRequiredEmotions(EmotionSystem emotionSystem)
+    /*public bool HasAnyEmotionWithValue(EmotionSystem emotionSystem)
     {
         foreach (EmotionSystem.EmotionType emotionType in requiredEmotions)
         {
-            //Überprüfe ob die benötigten Emotionen vorhanden sind
             float emotionValue = emotionSystem.GetEmotionValue(emotionType);
 
-            //Ändere die Bedinung nach anfroderung
-            if (emotionValue < skillCost)
+            // Überprüfe, ob der Wert des Emotionstyps den Zielwert erreicht oder überschreitet
+            if (emotionValue >= skillCost)
             {
-                return false;
+                return true;
             }
         }
-        return true;
+        return false;S
+    }*/
+
+    public bool HasAnyEmotionWithValue(EmotionSystem emotionSystem)
+    {
+        // Erstelle eine Kopie der Emotionen, um die Sortierung vorzunehmen.
+        FloatValue[] sortedEmotions = emotionSystem.emotionValues.ToArray();
+
+        // Sortiere die Emotionen nach ihrem Wert in absteigender Reihenfolge.
+        sortedEmotions = sortedEmotions.OrderByDescending(e => e.value).ToArray();
+
+        // Überprüfe den höchsten Wert der Emotionen und vergleiche ihn mit skillCost.
+        if (sortedEmotions.Length > 0 && sortedEmotions[0].value >= skillCost)
+        {
+            return true;
+        }
+
+        return false;
     }
 
     private void ApplySkillEffects(EmotionSystem emotionSystem)
@@ -60,7 +80,7 @@ public class Skill_Breathing : BaseAbility
             0f); //skillattack
 
         buffManager.Addbuff(emotionBalanceBuff);
-        emotionSystem.ConsumeEmotionAsResources(requiredEmotions, skillCost);
+        emotionSystem.ConsumeEmotionAsResources(resourceEmotions, skillCost);
 
     }
 

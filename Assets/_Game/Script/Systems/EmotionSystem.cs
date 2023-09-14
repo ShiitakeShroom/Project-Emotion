@@ -8,6 +8,10 @@ using UnityEngine.EventSystems;
 using static EmotionSystem;
 using static UnityEngine.Rendering.DebugUI;
 using Unity.VisualScripting;
+using static UnityEditor.ShaderData;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
+using System.Runtime.ConstrainedExecution;
+using System.Security.Cryptography;
 
 public class EmotionSystem : MonoBehaviour
 {
@@ -85,7 +89,20 @@ public class EmotionSystem : MonoBehaviour
         }
         CheckMonsterTransformation();
     }
-    public void ConsumeEmotionAsResources(EmotionType[] requierdEmotiones, float resourceCost)
+
+    public void AddEmotionWithValue(EmotionType emotionType, float valueToAdd)
+    {
+        int index = (int)emotionType;
+        float newValue = emotionValues[index].value + valueToAdd;
+
+        // Stelle sicher, dass der neue Wert zwischen minEmotionValue und maxEmotionValue liegt.
+        newValue = Mathf.Clamp(newValue, minEmotionValue, maxEmotionValue);
+
+        // Setze den neuen Emotionswert.
+        SetEmotionValue(emotionType, newValue);
+    }
+
+    /*public void ConsumeEmotionAsResources(EmotionType[] requierdEmotiones, float resourceCost)
     {
         foreach (EmotionType emotionType in requierdEmotiones)
         {
@@ -95,13 +112,40 @@ public class EmotionSystem : MonoBehaviour
 
             SetEmotionValue(emotionType, newEmotionValue);
         }
+    }*/
+
+
+    public void ConsumeEmotionAsResources(int numberOfEmotionsToUse, float resourceCost)
+    {
+        // Erstelle eine Kopie der Emotionen, um die Sortierung vorzunehmen.
+        FloatValue[] sortedEmotions = emotionValues.ToArray();
+
+        // Sortiere die Emotionen nach ihrem Wert in absteigender Reihenfolge.
+        sortedEmotions = sortedEmotions.OrderByDescending(e => e.value).ToArray();
+
+        // Begrenze die Anzahl der zu verwendenden Emotionen auf die verfügbare Anzahl.
+        numberOfEmotionsToUse = Mathf.Clamp(numberOfEmotionsToUse, 1, sortedEmotions.Length);
+
+        for (int i = 0; i < numberOfEmotionsToUse; i++)
+        {
+            EmotionType emotionType = sortedEmotions[i].emotionType;
+
+            // Berechne den neuen Emotionswert nach dem Verbrauch.
+            float newEmotionValue = GetEmotionValue(emotionType) - resourceCost;
+
+            // Stelle sicher, dass der Emotionswert nicht unter 0 fällt.
+            newEmotionValue = Mathf.Max(newEmotionValue, 0f);
+
+            // Setze den neuen Emotionswert.
+            SetEmotionValue(emotionType, newEmotionValue);
+        }
     }
+
 
     public void DistributeEmotions()
     {
-        // Finde die Emotion mit dem höchsten Wert
-        EmotionType highestEmotion = EmotionType.Wut;
-        float highestValue = GetEmotionValue(EmotionType.Wut);
+        EmotionType highestEmotion = EmotionType.Wut; // Start mit einer beliebigen Emotion
+        float highestValue = GetEmotionValue(EmotionType.Wut); // Start mit dem Wert der "Wut"-Emotion
 
         foreach (EmotionType emotionType in Enum.GetValues(typeof(EmotionType)))
         {
@@ -114,7 +158,7 @@ public class EmotionSystem : MonoBehaviour
         }
 
         // Setze die höchste Emotion auf null und verteile ihren Wert auf die anderen Emotionen
-        float redistributedValue = highestValue / 6f;
+        float redistributedValue = highestValue / (Enum.GetValues(typeof(EmotionType)).Length - 1); // -1, um die höchste Emotion auszuschließen
         SetEmotionValue(highestEmotion, 0f);
 
         foreach (EmotionType emotionType in Enum.GetValues(typeof(EmotionType)))
@@ -126,7 +170,6 @@ public class EmotionSystem : MonoBehaviour
             }
         }
     }
-
 
     // Methode, um zu überprüfen, ob sich der Spieler in ein Monster verwandeln kann
     private void CheckMonsterTransformation()

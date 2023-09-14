@@ -184,7 +184,7 @@ public class BattleSystemManager : MonoBehaviour
 
                 yield return new WaitForSeconds(1);
                 Debug.Log("Back to Level 1");
-                LevelLoader.instance.ReturnToOverWorld("SampleScene", true);
+                LevelLoader.instance.ReturnToOverWorld("SampleScene");
             }
 
             else if (battleState == BattleState.Lose)
@@ -192,7 +192,7 @@ public class BattleSystemManager : MonoBehaviour
                 Debug.Log("Fatality! JErry Wins");
                 LevelLoader.instance.playerWins = false;
                 yield return new WaitForSeconds(1);
-                LevelLoader.instance.ReturnToOverWorld("SampleScene", true);
+                LevelLoader.instance.ReturnToOverWorld("SampleScene");
             }
         }
     }

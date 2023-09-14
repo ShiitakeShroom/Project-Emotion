@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static EmotionSystem;
 
 //beschwört einen Companien der an einem Festen Punkt in der Map steht und dir hilft dich unter kontroll zu haben plus heal + defence
 [CreateAssetMenu(menuName = "Abilities/JustSayHello", fileName = "JustSayHello")]
@@ -12,13 +14,14 @@ public class Skill_JustSayHallo : BaseAbility
     public float duration = 10f;
     public Transform SpawnPosition;
     public GameObject friend;
+    public int resourceEmotions = 1;
 
     public override void Activate(AbilityHolder holder)
     {
 
         EmotionSystem emotionSystem = FindObjectOfType<EmotionSystem>();
 
-        if (HasRequiredEmotions(emotionSystem))
+        if (HasAnyEmotionWithValue(emotionSystem))
         {
             ApplySkillEffects(emotionSystem);
         }
@@ -28,20 +31,21 @@ public class Skill_JustSayHallo : BaseAbility
         }
     }
 
-    public bool HasRequiredEmotions(EmotionSystem emotionSystem)
+    public bool HasAnyEmotionWithValue(EmotionSystem emotionSystem)
     {
-        foreach (EmotionSystem.EmotionType emotionType in requiredEmotions)
-        {
-            //Überprüfe ob die benötigten Emotionen vorhanden sind
-            float emotionValue = emotionSystem.GetEmotionValue(emotionType);
+        // Erstelle eine Kopie der Emotionen, um die Sortierung vorzunehmen.
+        FloatValue[] sortedEmotions = emotionSystem.emotionValues.ToArray();
 
-            //Ändere die Bedinung nach anfroderung
-            if (emotionValue < skillCost)
-            {
-                return false;
-            }
+        // Sortiere die Emotionen nach ihrem Wert in absteigender Reihenfolge.
+        sortedEmotions = sortedEmotions.OrderByDescending(e => e.value).ToArray();
+
+        // Überprüfe den höchsten Wert der Emotionen und vergleiche ihn mit skillCost.
+        if (sortedEmotions.Length > 0 && sortedEmotions[0].value >= skillCost)
+        {
+            return true;
         }
-        return true;
+
+        return false;
     }
 
     private void ApplySkillEffects(EmotionSystem emotionSystem)
@@ -63,7 +67,7 @@ public class Skill_JustSayHallo : BaseAbility
         SpawnCompanion();
         buffManager.Addbuff(companionBuff);
         emotionSystem.SetMaxEmoitionValue(newMaxEmotionValue, duration);
-        emotionSystem.ConsumeEmotionAsResources(requiredEmotions, skillCost);
+        emotionSystem.ConsumeEmotionAsResources(resourceEmotions, skillCost);
     }
     
     private void SpawnCompanion()

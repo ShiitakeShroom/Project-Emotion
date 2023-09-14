@@ -62,7 +62,7 @@ public class AchtsamkeitsMenu : MonoBehaviour
         }
     }
 
-    void ResumeGame()
+    public void ResumeGame()
     {
         playerLooksAfterEmotion = false;
         mindfulnessMenuUI.alpha = 0f;

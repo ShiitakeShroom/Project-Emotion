@@ -4,25 +4,29 @@ using System.Linq;
 using UnityEngine;
 using static EmotionSystem;
 
-//nur ewinsetzbar wenn ein Skill über einen wert von 70% hat wird der in die anderen Emotionen aufgeteilt
-[CreateAssetMenu(menuName = "Abilities/ExchangeEmotions", fileName = "ExchangeEmotions")]
-public class Skill_ExchangeEmotions : BaseAbility
+[CreateAssetMenu(menuName = "Abilities/TakeItAndLeaveIt", fileName = "TakeItAndLeaveIt")]
+//Soll Items kreiieren die Später als disposable oder für den Kampf um emotionen zurückzubekommen
+public class Skill_TakeItAndLeaveIt : BaseAbility
 {
-    public int numberOfEmotions;
+    public int emotionToConsume;
     public override void Activate(AbilityHolder holder)
     {
         EmotionSystem emotionSystem = FindObjectOfType<EmotionSystem>();
-
-        if(HasAnyEmotionWithValue(emotionSystem))
+        //überprüfe ob die benötigte Emotionen vorhanden sind
+        if (HasAnyEmotionWithValue(emotionSystem))
         {
+            //Führen sie die akitone fpr den Skill aus
             ApplySkillEffects(emotionSystem);
-            Debug.Log("yes");
+
+            // Fügen Sie hier ggf. Logik hinzu, um die Kosten des Skills zu berechnen und abzuziehen
         }
         else
         {
-            Debug.Log("Its not the time and Space");
+            //meldung kann aktiviert werden oder andere Akiton ausgeführt werden 
+            Debug.Log("Der Skill kann nicht aktiviert werden");
         }
     }
+
 
     public bool HasAnyEmotionWithValue(EmotionSystem emotionSystem)
     {
@@ -37,14 +41,14 @@ public class Skill_ExchangeEmotions : BaseAbility
         {
             return true;
         }
+
         return false;
     }
 
-
-    private void ApplySkillEffects(EmotionSystem emotionSystem)
+    public void ApplySkillEffects(EmotionSystem emotionSystem)
     {
-        Debug.LogErrorFormat("Fuck you");
-        emotionSystem.DistributeEmotions();
-        emotionSystem.ConsumeEmotionAsResources(numberOfEmotions, skillCost);
+        //creats Item and put it into the Inventory
+        emotionSystem.ConsumeEmotionAsResources(emotionToConsume, skillCost);
+        emotionSystem.AddEmotionWithValue(EmotionType.Überraschung, 16f);//Placeholder Skill
     }
 }

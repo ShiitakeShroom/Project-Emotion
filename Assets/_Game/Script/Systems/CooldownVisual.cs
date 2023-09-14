@@ -1,10 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static EmotionSystem;
 
 public class CooldownVisual : MonoBehaviour
 {
@@ -40,7 +42,7 @@ public class CooldownVisual : MonoBehaviour
         
         ApplyCooldown();
 
-        if (!HasRequiredEmotions(emotionSystem) && !isCoolDown)
+        if (!HasAnyEmotionWithValue(emotionSystem) && !isCoolDown)
         {
             AbilityNotUseble();
         }
@@ -50,7 +52,7 @@ public class CooldownVisual : MonoBehaviour
             AreaNotUseable();
         }
 
-        else if (HasRequiredEmotions(emotionSystem) && !isCoolDown && CharacterIsOnAllowedState())
+        else if (HasAnyEmotionWithValue(emotionSystem) && !isCoolDown && CharacterIsOnAllowedState())
         {
             AbilityUseable();
         }
@@ -71,20 +73,21 @@ public class CooldownVisual : MonoBehaviour
         }
     }
 
-    public bool HasRequiredEmotions(EmotionSystem emotionSystem)
+    public bool HasAnyEmotionWithValue(EmotionSystem emotionSystem)
     {
-        foreach (EmotionSystem.EmotionType emotionType in ability.requiredEmotions)
-        {
-            //Überprüfe ob die benötigten Emotionen vorhanden sind
-            float emotionValue = emotionSystem.GetEmotionValue(emotionType);
+        // Erstelle eine Kopie der Emotionen, um die Sortierung vorzunehmen.
+        FloatValue[] sortedEmotions = emotionSystem.emotionValues.ToArray();
 
-            //Ändere die Bedinung nach anfroderung
-            if (emotionValue < ability.skillCost)
-            {
-                return false;
-            }
+        // Sortiere die Emotionen nach ihrem Wert in absteigender Reihenfolge.
+        sortedEmotions = sortedEmotions.OrderByDescending(e => e.value).ToArray();
+
+        // Überprüfe den höchsten Wert der Emotionen und vergleiche ihn mit skillCost.
+        if (sortedEmotions.Length > 0 && sortedEmotions[0].value >= ability.skillCost)
+        {
+            return true;
         }
-        return true;
+
+        return false;
     }
 
     public void OnIconclick()
@@ -94,7 +97,7 @@ public class CooldownVisual : MonoBehaviour
         if (!CharacterIsOnAllowedState())
             return;
 
-        if (!isCoolDown && HasRequiredEmotions(emotionSystem))
+        if (!isCoolDown && HasAnyEmotionWithValue(emotionSystem))
         {
             Debug.Log("Icon wurde gecklickt");
             StartCooldown();
