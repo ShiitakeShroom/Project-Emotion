@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 588fd2d96f0021c4f9b25a7c4d27f2a2, type: 3}
+  m_Name: TheBeuatyOfNatur
+  m_EditorClassIdentifier: 
+  HasCooldown: 1
+  CooldDown: 15
+  CastingTime: 3
+  skillCost: 0
+  requiredEmotions: 
+  AllowedCharacterStates: 0500000000000000

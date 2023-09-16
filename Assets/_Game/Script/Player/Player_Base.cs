@@ -10,7 +10,7 @@ public class Player_Base : MonoBehaviour
     [Header("Scrips")]
     public bool IsAlive = true;
     public StatusManager status;
-
+    public ProjectilSpawnAbility ability;
 
     [Header("Interaktion")]
     public float interactionSphereRadius = 1f;
@@ -22,10 +22,15 @@ public class Player_Base : MonoBehaviour
     {
         if (LevelLoader.instance.spawnLoader)
         {
-           this.transform.position = PlayerPosition.GetPosition();
+            this.transform.position = PlayerPosition.GetPosition();
         }
 
         spawnManager = FindObjectOfType<SpawnManager>();
+        if (!ability)
+        {
+            ability = FindObjectOfType<ProjectilSpawnAbility>();
+        }
+
 
         //Emotion Events
         status.emotionSystem.NearlyMorbingTime += NearlyMorbingTime;
@@ -42,7 +47,7 @@ public class Player_Base : MonoBehaviour
     public void InteractionPlayer()
     {
         //Interacktion wird ausgelöst wenn E gedrückt wird
-        if(Input.GetKeyDown(KeyCode.E)) 
+        if (Input.GetKeyDown(KeyCode.E))
         {
             RaycastHit hit;
             if (Physics.SphereCast(transform.position, interactionSphereRadius, transform.forward, out hit, maxRangeInteraktion))
@@ -51,8 +56,8 @@ public class Player_Base : MonoBehaviour
                 if (npc != null)
                 {
                     Debug.Log("Its Possible");
-                    
-                        npc.Interact();
+
+                    npc.Interact();
                 }
             }
         }
@@ -83,7 +88,7 @@ public class Player_Base : MonoBehaviour
             PlayerPosition.SavePosition(this.transform.position);
             Debug.Log(PlayerPosition.GetPosition());
             LevelLoader.instance.LoadSpanLevel("SampleScene", true);
-        }   
+        }
     }
 
     private void NearlyMorbingTime(object sender, EventArgs e)
@@ -100,5 +105,33 @@ public class Player_Base : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, interactionSphereRadius);
+    }
+
+    public void FireAttacks(float duration)
+    {
+        ability.affektedByAbility = true;
+        if (ability.affektedByAbility)
+        {
+            ability.fireAbility = true;
+        }
+        StartCoroutine(ReturnToNormalAbility(duration));
+    }
+
+    public void IceAttacks(float duration)
+    {
+        ability.affektedByAbility = true;
+        if(ability.affektedByAbility)
+        {
+            ability.iceAbility = true;
+        }
+        StartCoroutine(ReturnToNormalAbility(duration));
+    }
+
+    IEnumerator ReturnToNormalAbility(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        ability.affektedByAbility = false;
+        ability.iceAbility = false;
+        ability.fireAbility = false;
     }
 }

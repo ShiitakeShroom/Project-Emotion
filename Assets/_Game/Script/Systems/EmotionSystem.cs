@@ -51,6 +51,11 @@ public class EmotionSystem : MonoBehaviour
     // Schwelle, um sich in ein Monster zu verwandeln
     public float monsterTransformationThreshold = 75f;
 
+    //rate wieviel emotioen eigentlich absorbiert werden
+    public float absorptionMultiplier = 1.0f;
+
+    private Coroutine consumeEmotionCoroutine;//die Coroutine muss gespeichert werden um damit sie gestop werden kann
+
     private void Awake()
     {
         if (instance == null)
@@ -70,13 +75,15 @@ public class EmotionSystem : MonoBehaviour
         foreach (EmotionObject.EmotionData emotion in emotions)
         {
             int index = (int)emotion.emotionType;
-            emotionValues[index].value += emotion.valueToAbsorb;
+            float adjustedValuetoAbsorb = emotion.valueToAbsorb * absorptionMultiplier;
+
+            emotionValues[index].value += adjustedValuetoAbsorb;
 
             // Den Emotionswert innerhalb der Grenzen halten;
             emotionValues[index].value = Mathf.Clamp(emotionValues[index].value, minEmotionValue, maxEmotionValue);
 
 
-            if (emotion.valueToAbsorb > 0)
+            if (adjustedValuetoAbsorb > 0)
             {
                 Debug.Log(emotion.emotionType.ToString() + " = " + emotionValues[index].value.ToString("F2") + "%");
             }
@@ -93,7 +100,7 @@ public class EmotionSystem : MonoBehaviour
     public void AddEmotionWithValue(EmotionType emotionType, float valueToAdd)
     {
         int index = (int)emotionType;
-        float newValue = emotionValues[index].value + valueToAdd;
+        float newValue = emotionValues[index].value + (valueToAdd * absorptionMultiplier);
 
         // Stelle sicher, dass der neue Wert zwischen minEmotionValue und maxEmotionValue liegt.
         newValue = Mathf.Clamp(newValue, minEmotionValue, maxEmotionValue);
@@ -234,6 +241,19 @@ public class EmotionSystem : MonoBehaviour
 
         StartCoroutine(ResetThreshHold(duration));
     }
+
+    public void NewAbsorbtionRate(float newAbsorbtionRate, float duration)
+    {
+        absorptionMultiplier = newAbsorbtionRate;
+        StartCoroutine(ResetAbsorbtionRate(duration));
+    }
+
+    IEnumerator ResetAbsorbtionRate(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        absorptionMultiplier = 1f;
+    }
+
     public void SetMaxEmoitionValue(float maxEmoitionValueNew, float duration)
     {
         maxEmotionValue = maxEmoitionValueNew;
@@ -249,6 +269,32 @@ public class EmotionSystem : MonoBehaviour
         maxEmotionValueChange?.Invoke(this, EventArgs.Empty);
     }
 
+    public void ConsumEmotionOverTime(float resourceCost, float consumptionIntervall)
+    {
+        if(consumeEmotionCoroutine == null)
+        {
+          consumeEmotionCoroutine = StartCoroutine(StartConsumptionOfEmotion(resourceCost, consumptionIntervall));
+        }
+    }
+
+    IEnumerator StartConsumptionOfEmotion(float resourceCost, float consumptionIntervall)
+    {
+        while(true)
+        {
+            ConsumeEmotionAsResources(1, resourceCost);
+            yield return new WaitForSeconds(consumptionIntervall);
+        }
+    }
+
+    public void StopConsumptionOfEmotions(float rescourceCost, float consumptionIntervall)
+    {
+        if(consumeEmotionCoroutine != null)
+        {
+            StopCoroutine(consumeEmotionCoroutine);
+            consumeEmotionCoroutine = null;
+            Debug.Log("true");
+        }
+    }
 }
 
 

@@ -13,9 +13,20 @@ MonoBehaviour:
   m_Name: Projectil Ability
   m_EditorClassIdentifier: 
   HasCooldown: 1
-  CooldDown: 0
+  CooldDown: 0.5
   CastingTime: 0
-  AllowedCharacterStates: 00000000
-  projektil: {fileID: 3976499801008332363, guid: 47cd824919a9246479627d8333e656dc,
+  skillCost: 1
+  requiredEmotions: 
+  AllowedCharacterStates: 0500000003000000
+  normalProjektil: {fileID: 3976499801008332363, guid: 47cd824919a9246479627d8333e656dc,
+    type: 3}
+  iceProjectil: {fileID: 1202452010869625624, guid: 9cc17eabb4e2ebd44ac31ac01dde0767,
+    type: 3}
+  fireProjectil: {fileID: 6979603374197488538, guid: 32d20638c13ee744687168fb2138c5cd,
     type: 3}
   projectilSpawn: {fileID: 0}
+  affektedByAbility: 1
+  iceAbility: 0
+  fireAbility: 1
+  projectilCost: 1.05
+  attackSpeedDebuff: 0.85

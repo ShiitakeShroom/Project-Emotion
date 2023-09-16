@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba2f9920fba05fa448ed44c472c31891, type: 3}
+  m_Name: AchtsamSehen
+  m_EditorClassIdentifier: 
+  HasCooldown: 1
+  CooldDown: 1
+  CastingTime: 0
+  skillCost: 1.5
+  requiredEmotions: 
+  AllowedCharacterStates: 0300000005000000
+  resourceEmotions: 1
+  skillActive: 0
+  consumptionIntervall: 1.5
