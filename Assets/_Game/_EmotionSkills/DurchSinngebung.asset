@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01dfef9e1a2261942b6d05223cc0de83, type: 3}
+  m_Name: DurchSinngebung
+  m_EditorClassIdentifier: 
+  HasCooldown: 1
+  CooldDown: 0
+  CastingTime: 15
+  skillCost: 0
+  requiredEmotions: 
+  AllowedCharacterStates: 000000000500000003000000

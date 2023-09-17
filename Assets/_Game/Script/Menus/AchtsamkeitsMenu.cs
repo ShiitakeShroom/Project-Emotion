@@ -6,6 +6,7 @@ using UnityEngine;
 public class AchtsamkeitsMenu : MonoBehaviour
 {
     public static bool playerLooksAfterEmotion = false;
+    public bool isOnCoolDown = false;
     public CanvasGroup mindfulnessMenuUI;
     public List<EmotionBar> emotionBars;
 
@@ -13,14 +14,19 @@ public class AchtsamkeitsMenu : MonoBehaviour
     public float elapsedTime = 0.0f;
     public float slowMotion;
 
+    public float cooldown = 2.5f;
+    public float cooldDownTimer = 0.0f;
+
     public void Start()
     {
-        
+
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
+        ApplyCooldDown();
+
+        if (Input.GetKeyDown(KeyCode.Tab) && !isOnCoolDown)
         {
             ToggleMindFullness();
         }
@@ -31,6 +37,19 @@ public class AchtsamkeitsMenu : MonoBehaviour
             if (elapsedTime >= timer)
             {
                 ResumeGame();
+            }
+        }
+    }
+
+    void ApplyCooldDown()
+    {
+        if (isOnCoolDown)
+        {
+            cooldDownTimer -= Time.deltaTime;
+
+            if (cooldDownTimer <= 0.0f)
+            {
+                isOnCoolDown = false;
             }
         }
     }
@@ -74,6 +93,14 @@ public class AchtsamkeitsMenu : MonoBehaviour
         {
             emotionBar.UpdateEmotionBarFromSystem();
         }
+        StartCooldown();
     }
 
+
+    void StartCooldown()
+    {
+        isOnCoolDown = true;
+        cooldDownTimer = cooldown;//setzt den den CooldownTimer auf 2,5 sekunden
+
+    }
 }
